@@ -5,6 +5,7 @@ type IRequestConfig = {
   method: string
   baseUrl?: string
   params?: Record<string, string | number>
+  data?: any
 }
 
 const request = async (config: IRequestConfig) : Promise<AxiosResponse> => {
