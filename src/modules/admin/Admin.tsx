@@ -64,7 +64,7 @@ const Admin = () => {
   }
   const handleEdit = (message: Message) => {
     setShowDialog(true)
-    setAction('edit')
+    setAction('update')
     setSelectedMessage(message)
   }
   const handleRemove = (message: Message) => {
