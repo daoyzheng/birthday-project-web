@@ -48,11 +48,12 @@ const Admin = () => {
     const method = 'delete'
     const config = {
       url,
-      method
+      method,
+      isProtected: true
     }
     await request(config)
-    await fetchMessages()
-
+    const updatedMessages = messages.filter(m => m.id !== selectedMessage.id)
+    setMessages(updatedMessages)
   }
   useEffect(() => {
     fetchMessages()
@@ -64,6 +65,11 @@ const Admin = () => {
   const handleEdit = (message: Message) => {
     setShowDialog(true)
     setAction('edit')
+    setSelectedMessage(message)
+  }
+  const handleRemove = (message: Message) => {
+    setShowDialog(true)
+    setAction('delete')
     setSelectedMessage(message)
   }
 
@@ -92,9 +98,13 @@ const Admin = () => {
     window.location.href="/admin/login"
   }
 
-  const handleUpdate = async (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
-    await updateMessage()
+    if (action === 'update') {
+      await updateMessage()
+    } else {
+      await deleteMessage()
+    }
     setShowDialog(false)
   }
   const cellFormat = 'border border-slate-600 p-2'
@@ -128,7 +138,7 @@ const Admin = () => {
                     <td className={cellFormat}>{message.country}</td>
                     <td className={`${cellFormat} text-center`}>
                       <div className="cursor-pointer text-blue-300" onClick={() => handleEdit(message)}>Edit</div>
-                      <div className="cursor-pointer text-red-400">Delete</div>
+                      <div className="cursor-pointer text-red-400" onClick={() => handleRemove(message)}>Delete</div>
                     </td>
                   </tr>
                 )
@@ -141,7 +151,7 @@ const Admin = () => {
         showDialog &&
         <Dialog className="fixed left-auto top-1/4 bg-slate-700/70 backdrop-opacity-70 w-1/4 min-h-fit h-1/2 rounded backdrop-sepia-0 backdrop-blur-md">
           <div className="p-3 mt-4">
-            <form onSubmit={handleUpdate}>
+            <form onSubmit={handleSubmit}>
               <div className="font-semibold mb-2">From:</div>
               <input
                 readOnly={action === 'delete'}
@@ -164,8 +174,8 @@ const Admin = () => {
                 >Close</button>
                 <button 
                   type="submit"
-                  className="bg-blue-500"
-                >Update</button>
+                  className={`${action === 'update' ? 'bg-blue-500' : 'bg-red-800'}`}
+                >{ action === 'update' ? 'Update' : 'Delete'}</button>
               </div>
             </form>
           </div>
