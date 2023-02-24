@@ -88,7 +88,7 @@ const Admin = () => {
           <tbody>
             {
               messages.length === 0 ?
-              <tr><i className="p-2">Empty</i></tr> :
+              <tr><td>Empty</td></tr> :
               messages.map(message => {
                 return (
                   <tr key={message.id}>
