@@ -82,11 +82,13 @@ const Admin = () => {
               <th className={cellFormat}>Date</th>
               <th className={cellFormat}>City</th>
               <th className={cellFormat}>Country</th>
-              <th className={cellFormat}></th>
+              <th className={cellFormat}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {
+              messages.length === 0 ?
+              <tr><i className="p-2">Empty</i></tr> :
               messages.map(message => {
                 return (
                   <tr key={message.id}>
@@ -108,7 +110,7 @@ const Admin = () => {
       </div>
       {
         showDialog &&
-        <Dialog className="fixed left-auto top-1/4 bg-white/30 w-1/4 min-h-fit h-1/2 rounded backdrop-sepia-0 backdrop-blur-md">
+        <Dialog className="fixed left-auto top-1/4 bg-slate-700/70 backdrop-opacity-70 w-1/4 min-h-fit h-1/2 rounded backdrop-sepia-0 backdrop-blur-md">
           <div className="p-3 mt-4">
             <form onSubmit={handleUpdate}>
               <div className="font-semibold mb-2">From:</div>
