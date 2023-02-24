@@ -27,10 +27,32 @@ const Admin = () => {
     const config = {
       url,
       method,
-      data
+      data,
+      isProtected: true
     }
     const res = await request(config)
+    const updatedMessage : Message = res.data
+    setMessages(oldMessages => {
+      return oldMessages.map(message => {
+        if (message.id === updatedMessage.id) {
+          return updatedMessage
+        }
+        return message
+      })
+    })
+
+  }
+  const deleteMessage = async () => {
+    if (!selectedMessage) return
+    const url = `${import.meta.env.VITE_CLIENT_API}/api/messages/${selectedMessage.id}`
+    const method = 'delete'
+    const config = {
+      url,
+      method
+    }
+    await request(config)
     await fetchMessages()
+
   }
   useEffect(() => {
     fetchMessages()
@@ -65,13 +87,20 @@ const Admin = () => {
     }
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken')
+    window.location.href="/admin/login"
+  }
+
   const handleUpdate = async (event: FormEvent) => {
     event.preventDefault()
     await updateMessage()
+    setShowDialog(false)
   }
   const cellFormat = 'border border-slate-600 p-2'
   return (
     <div className="bg-slate-800 min-h-screen min-w-screen flex justify-center ">
+      <button className="absolute right-10 top-10 font-bold" onClick={handleLogout}>Logout</button>
       <div className="p-10">
         <div className="mb-10 text-center font-bold text-3xl">Birthday Wishes</div>
         <table className="table-fixed border border-collapse border-slate-600">
@@ -97,7 +126,7 @@ const Admin = () => {
                     <td className={cellFormat}>{getLocalDateTime(message.createdAt)}</td>
                     <td className={cellFormat}>{message.city}</td>
                     <td className={cellFormat}>{message.country}</td>
-                    <td className={cellFormat}>
+                    <td className={`${cellFormat} text-center`}>
                       <div className="cursor-pointer text-blue-300" onClick={() => handleEdit(message)}>Edit</div>
                       <div className="cursor-pointer text-red-400">Delete</div>
                     </td>
