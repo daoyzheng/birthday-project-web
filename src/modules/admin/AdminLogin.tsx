@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios"
 import { FormEvent, useState } from "react"
 import request from "../../utils/request"
-import { Notification } from "./AdminLogin.styled"
+import { Notification } from "./adminLogin.styled"
 
 const AdminLogin = () => {
   const [showNotification, setShowNotification] = useState<boolean>(false)
