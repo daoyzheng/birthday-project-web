@@ -5,8 +5,8 @@ interface decodedToken {
 }
 
 const useAuth = () => {
-  const token = localStorage.getItem('accessToken')
   let isAuth = false
+  const token = localStorage.getItem('accessToken')
   if (token) {
     const decodedToken = jwt_decode<decodedToken>(token)
     const currentTime = Date.now() / 1000

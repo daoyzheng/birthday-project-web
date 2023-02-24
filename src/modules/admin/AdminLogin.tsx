@@ -1,13 +1,11 @@
 import { AxiosResponse } from "axios"
 import { FormEvent, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import request from "../../utils/request"
 import { Notification } from "./AdminLogin.styled"
 
 const AdminLogin = () => {
   const [showNotification, setShowNotification] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
-  const navigate = useNavigate()
   let notificationTimeout: any
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -35,7 +33,7 @@ const AdminLogin = () => {
     }
     const { accessToken } = await login(email, password)
     localStorage.setItem('accessToken', accessToken)
-    navigate('/admin')
+    window.location.href = '/admin'
   }
   const login = async (email: string, password: string) => {
     const url = `${import.meta.env.VITE_CLIENT_API}/api/users/auth`
