@@ -1,4 +1,4 @@
-import { Circle, Img, Page, Title } from "./birthdayWish.styled"
+import { Circle, Img, Page, ScrollDown, Title } from "./birthdayWish.styled"
 
 const BirthdayWish = () => {
   return (
@@ -55,14 +55,15 @@ const BirthdayWish = () => {
             width={170} 
             height={170}
           /> */}
-          <div className="absolute bottom-10 w-full">
-            <div className="text-center">Scroll Down</div>
+          <div className="absolute bottom-4 w-full lg:hidden">
+            <div className="text-center animate-bounce">Scroll Down</div>
+            <ScrollDown/>
           </div>
         </div>
       </div>
       <div className="lg:col-span-3 flex flex-col items-center justify-center relative min-h-screen text-rose-300/90 pb-20">
         <Title className="font-semibold mb-10 text-center">Write a birthday wish</Title>
-        <div className="h-11/12 min-h-content lg:w-4/5 w-11/12 max-w-lg lg:mx-0 bg-white/20 backdrop-blur-md rounded shadow-2xl shadow-red-300/90 lg:p-10 p-4 relative">
+        <div className="h-11/12 min-h-content lg:w-4/5 w-11/12 max-w-lg lg:mx-0 backdrop-blur-2xl rounded shadow-2xl shadow-red-300/90 lg:p-10 p-4">
           <Img 
             className="absolute -top-3 -right-5 rotate-12"
             src="/src/assets/heart2.png" 
@@ -96,7 +97,7 @@ const BirthdayWish = () => {
               <div className="mb-2">Birthday Wish</div>
               <textarea 
                 rows={10}
-                placeholder="Wish you a very happy birthday 🎂 🍰"
+                placeholder="Happy birthday 🎂 🍰"
                 className="p-2 focus:outline-none border-2 border-rose-300/90 bg-transparent w-full max-h-50 min-h-50 rounded-lg resize-none placeholder:text-rose-300/50"
               />
               <div className="flex justify-end w-full mt-4">
