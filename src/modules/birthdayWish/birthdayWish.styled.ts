@@ -19,3 +19,13 @@ interface ICircleProps {
 export const Circle = styled.div<ICircleProps>`
   border-radius: ${props => props.borderRadius};
 `
+
+export const Title = styled.div`
+  font-family: cookieMonster;
+  font-size: 50px;
+  margin-top: 100px;
+
+  @media (min-width: 1024px) {
+    font-size: 70px;
+  }
+`
