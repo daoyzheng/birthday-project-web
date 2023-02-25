@@ -12,3 +12,10 @@ export const Img = styled.img<ImgProps>`
   width: ${props => `${props.width}px`};
   height: ${props => `${props.height}px`};
 `
+
+interface ICircleProps {
+  borderRadius: string
+}
+export const Circle = styled.div<ICircleProps>`
+  border-radius: ${props => props.borderRadius};
+`
