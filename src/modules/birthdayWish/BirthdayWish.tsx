@@ -2,9 +2,14 @@ import { Circle, Img, Page, ScrollDown, Title } from "./birthdayWish.styled"
 
 const BirthdayWish = () => {
   return (
-    <Page className="min-h-screen lg:grid lg:grid-cols-7">
+    <Page className="min-h-screen lg:grid lg:grid-cols-7 self-center">
       <div className="lg:col-span-4 h-full min-h-full p-3">
         <div className="bg-red-600/20 min-h-screen lg:min-h-full rounded-lg relative">
+          <Title 
+            fontSize="50px"
+            fontSizeLg="90px"
+            className="text-center pt-5"
+          >Langlang's Birthday</Title>
           {/* <div className="absolute top-20 -left-10">
             <Circle 
               borderRadius="42% 58% 45% 55% / 34% 35% 65% 66% "
@@ -62,7 +67,12 @@ const BirthdayWish = () => {
         </div>
       </div>
       <div className="lg:col-span-3 flex flex-col items-center justify-center relative min-h-screen text-rose-300/90 pb-20">
-        <Title className="font-semibold mb-10 text-center">Write a birthday wish</Title>
+        <Title 
+          marginTop="100px" 
+          fontSize="50px"
+          fontSizeLg="70px"
+          className="font-semibold mb-10 text-center"
+        >Write a birthday wish</Title>
         <div className="h-11/12 min-h-content lg:w-4/5 w-11/12 max-w-lg lg:mx-0 backdrop-blur-2xl rounded shadow-2xl shadow-red-300/90 lg:p-10 p-4">
           <Img 
             className="absolute -top-3 -right-5 rotate-12"

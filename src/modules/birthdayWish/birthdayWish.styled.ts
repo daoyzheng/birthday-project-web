@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 export const Page = styled.div`
   /* background-color: #fbe4db; */
   background-color: white;
+  
 `
 
 interface ImgProps {
@@ -21,13 +22,18 @@ export const Circle = styled.div<ICircleProps>`
   border-radius: ${props => props.borderRadius};
 `
 
-export const Title = styled.div`
+interface ITitleProps {
+  marginTop?: string
+  fontSize: string
+  fontSizeLg: string
+}
+export const Title = styled.div<ITitleProps>`
   font-family: cookieMonster;
-  font-size: 50px;
-  margin-top: 100px;
+  font-size: ${props => props.fontSize};
+  margin-top: ${props => props.marginTop};
 
   @media (min-width: 1024px) {
-    font-size: 70px;
+    font-size: ${props => props.fontSizeLg};
   }
 `
 
