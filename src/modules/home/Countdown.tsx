@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Circle, Img } from "../birthdayWish/birthdayWish.styled"
 import { FlipCardWrapper } from "./home.styled"
+import img from '/src/assets/4.png'
 
 const Countdown = () => {
   const [days, setDays] = useState<number>(0)
@@ -105,7 +106,7 @@ const Countdown = () => {
           <div className="flex items-center flex-col relative mt-48">
             <div className="bg-amber-200/70 lg:w-96 w-64 rounded-full lg:h-96 h-64 shadow-amber-300/70 shadow-2xl absolute lg:-top-72 -top-32"/>
             <Img
-              src="/src/assets/4.png"
+              src={img}
               className="absolute lg:w-80 lg:-top-72 w-64 -top-32"
             />
             <div className="flex items-center flex-wrap lg:gap-x-10 gap-x-5 justify-center z-10 mt-10 gap-y-5">
