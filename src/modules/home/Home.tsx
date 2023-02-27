@@ -12,12 +12,12 @@ const Home = () => {
   }, [])
   return isBirthday ? 
     (
-      <div className="min-h-screen flex justify-center bg-slate-800">
+      <div className="min-h-screen flex justify-center bg-gradient-to-r from-violet-500 to-fuchsia-500">
         <div className="max-w-screen-2xl w-full">
           <Title
             fontSize="40px"
-            fontSizeLg="70px"
-            className="text-center rounded-md text-rose-100 mt-12"
+            fontSizeLg="90px"
+            className="text-center rounded-md mt-12"
           >Happy Birthday Langlang</Title>
 
         </div>
