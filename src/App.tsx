@@ -12,7 +12,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/birthday-wishes" element={<BirthdayWish/>}/>
+        <Route path="/birthday-wish" element={<BirthdayWish/>}/>
         <Route path="/admin/login" element={isAuth ? <Navigate to="/admin" /> : <AdminLogin/>}/>
         <Route element={<ProtectedRoute redirectPath="/admin/login"/>}>
           <Route path="/admin" element={isAuth ? <Admin/> : <Navigate to="/admin/login"/>}/>
