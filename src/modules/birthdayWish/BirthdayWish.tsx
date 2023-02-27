@@ -1,29 +1,27 @@
 import { useEffect, useRef, useState } from "react"
-import { Img, Page, ScrollDown, Title } from "./birthdayWish.styled"
+import { Circle, Img, Page, ScrollDown, Title } from "./birthdayWish.styled"
 import * as THREE from 'three'
 import { ACESFilmicToneMapping, AmbientLight, AnimationMixer, PointLight, sRGBEncoding } from "three"
 // import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
-interface IWindowDimensions {
-  width: number
-  height: number
+interface ILocation {
+  city: string
+  country: string
 }
 
 const BirthdayWish = () => {
-  const [windowDimensions, setWindowDimensions] = useState<IWindowDimensions>(getWindowDiemensions())
+  const [location, setLocation] = useState<ILocation>()
   useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDiemensions())
-    }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    const location = getLocation()
+    setLocation(location)
   }, [])
-  function getWindowDiemensions( ) {
-    const { innerWidth: width, innerHeight: height } = window
+  function getLocation( ) {
+    const city = geoplugin_city()
+    const country = geoplugin_countryName() 
     return {
-      width,
-      height
+      city,
+      country
     }
   }
   // useEffect(() => {
@@ -104,10 +102,45 @@ const BirthdayWish = () => {
             fontSizeLg="70px"
             className="text-center rounded-md text-red-500/40 pt-3"
           >Langlang's Birthday</Title>
-          {/* <div>{windowDimensions.width}</div>
-          <div>{windowDimensions.height}</div> */}
-          {/* {550, 800} {380, 480}; {550, 800} {500, 750} */}
+          <Circle
+            borderRadius="100%" 
+            isUpdown
+            duration={5}
+            className="w-16 h-16 absolute top-0 -left-3 bg-rose-300/20 backdrop-blur-md shadow"
+          />
+          <Circle
+            borderRadius="100%" 
+            isUpdown
+            duration={10}
+            className="w-12 h-12 absolute top-32 right-12 bg-rose-200/30 backdrop-blur-md shadow"
+          />
+          <Circle
+            borderRadius="100%" 
+            duration={8}
+            className="w-14 h-14 absolute top-12 right-32 bg-rose-300/30 backdrop-blur-md shadow"
+          />
+          <Circle
+            borderRadius="100%" 
+            duration={5}
+            className="w-14 h-14 absolute top-64 left-32 bg-pink-200/30 backdrop-blur-md shadow"
+          />
+          <Circle
+            borderRadius="100%" 
+            duration={5}
+            isUpdown
+            className="w-32 h-32 absolute top-64 lg:right-72 right-24 bg-pink-200/20 backdrop-blur-md shadow"
+          />
+          <Circle
+            borderRadius="100%" 
+            duration={8}
+            isUpdown
+            className="w-20 h-20 absolute -bottom-5 right-24 bg-pink-400/20 backdrop-blur-md shadow"
+          />
           <div className="relative lg:right-10">
+            <Img
+              className="absolute right-10 lg:top-2 z-10 w-1/5 max-w-6 rotate-12"
+              src="/src/assets/sponge-bob.png"
+            />
             <Img
               className="absolute right-10 top-5 z-10 w-2/4 max-w-20"
               src="/src/assets/1.png"
@@ -127,57 +160,6 @@ const BirthdayWish = () => {
               src="/src/assets/splash1.png"
             />
           </div>
-          {/* <div id="birthday-cake" className="h-96 min-w-full"></div> */}
-          {/* <div className="absolute top-20 -left-10">
-            <Circle 
-              borderRadius="42% 58% 45% 55% / 34% 35% 65% 66% "
-              className="w-16 h-16 bg-red-600/20 relative top-0 left-10 shadow-lg"/>
-            <Img 
-              className="rotate-6 relative -top-14 left-10 -scale-x-100"
-              src="/src/assets/bunny1.png" 
-              width={60} 
-              height={70}
-            />
-          </div>
-          <div className="absolute top-8 left-10">
-            <Img 
-              className="relative left-2"
-              src="/src/assets/sponge-bob.png" 
-              width={70} 
-              height={70}
-            />
-            <Circle 
-              borderRadius="42% 58% 45% 55% / 67% 35% 65% 33% "
-              className="w-10 h-10 bg-red-600/20 relative -top-8 left-6 shadow-lg"/>
-          </div>
-          <div className="absolute top-16 right-4">
-            <Img 
-              className="relative top-0 right-0 rotate-6"
-              src="/src/assets/drink2.png" 
-              width={70} 
-              height={100} 
-            />
-            <Circle 
-              borderRadius="68% 32% 65% 35% / 34% 35% 65% 66% "
-              className="w-16 h-16 bg-red-600/20 absolute top-0 right-0 shadow-lg"/>
-          </div>
-          <div className="absolute bottom-0 left-2">
-            <Img 
-              className="relative rotate-12"
-              src="/src/assets/bubble-tea.png" 
-              width={100} 
-              height={150}
-            />
-            <Circle 
-              borderRadius="62% 38% 34% 66% / 39% 47% 53% 61% "
-              className="w-20 h-20 bg-red-600/20 relative bottom-20 shadow-lg"/>
-          </div>
-          <Img 
-            className="absolute bottom-10 right-2 rotate-12"
-            src="/src/assets/bunny.png" 
-            width={170} 
-            height={170}
-          /> */}
           <div className="absolute bottom-10 w-full lg:hidden">
             <div className="text-center animate-bounce">Scroll Down</div>
             <ScrollDown/>

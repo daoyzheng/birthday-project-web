@@ -27,11 +27,26 @@ export const Img = styled.img<ImgProps>`
   height: ${props => `${props.height}`};
 `
 
+const upDown = keyframes`
+ 50% {
+  transform: translateY(20px)
+ }
+`
+
+const leftRight = keyframes`
+ 50% {
+  transform: translateX(20px)
+ }
+`
+
 interface ICircleProps {
   borderRadius: string
+  isUpdown?: boolean
+  duration: number
 }
 export const Circle = styled.div<ICircleProps>`
   border-radius: ${props => props.borderRadius};
+  animation: ${props => props.isUpdown ? upDown : leftRight} ${props => `${props.duration}s`} infinite;
 `
 
 interface ITitleProps {
