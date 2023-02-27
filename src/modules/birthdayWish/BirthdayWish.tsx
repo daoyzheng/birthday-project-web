@@ -19,18 +19,25 @@ const BirthdayWish = () => {
   const [showNotification, setShowNotification] = useState<boolean>(false)
   const [showSuccessNotification, setShowSuccessNotification] = useState<boolean>(false)
 
-  useEffect(() => {
-    const location = getLocation()
-    setLocation(location)
-  }, [])
-  function getLocation( ) {
-    const city = geoplugin_city()
-    const country = geoplugin_countryName() 
-    return {
-      city,
-      country
+  async function getLocation () {
+    const url ='http://www.geoplugin.net/json.gp'
+    const method = 'get'
+    const config = {
+      url,
+      method
     }
+    const { data } = await request(config)
+    const location = {
+      city: data.geoplugin_city,
+      country: data.geoplugin_countryName
+    }
+    setLocation(location)
+
   }
+
+  useEffect(() => {
+    getLocation()
+  }, [])
   const createMessage = async (from: string, body: string) => {
     const url = `${import.meta.env.VITE_CLIENT_API}/api/messages`
     const method = 'post'
