@@ -1,18 +1,30 @@
 import styled, { keyframes } from "styled-components";
 
+
+const colorShift = keyframes`
+  0% {
+    background-position: 0 50%;
+  } 
+  50% {
+    background-position: 100% 100%;
+  } 
+  100% {
+    background-position: 0 50%;
+  } 
+`
 export const Page = styled.div`
-  /* background-color: #fbe4db; */
-  background-color: white;
-  
+  background: linear-gradient(120deg, rgba(255,255,128,1) 0%, rgba(255,162,218,1) 40%, rgba(182,244,255,1) 100%);
+  background-size: 300% 300%;
+  animation: ${colorShift} 15s infinite;
 `
 
 interface ImgProps {
-  width: number
-  height: number
+  width?: string
+  height?: string
 }
 export const Img = styled.img<ImgProps>`
-  width: ${props => `${props.width}px`};
-  height: ${props => `${props.height}px`};
+  width: ${props => `${props.width}`};
+  height: ${props => `${props.height}`};
 `
 
 interface ICircleProps {
