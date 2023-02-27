@@ -162,7 +162,7 @@ const BirthdayWish = () => {
   return (
     <Page className="min-h-screen flex items-center justify-center lg:h-screen">
       <div className="lg:grid lg:grid-cols-7 max-w-screen-2xl w-full bg-white/20 backgdrop-blur-lg shadow-md rounded h-3/4 mx-4 my-10">
-        <div className="lg:col-span-4 bg-white/30 backdrop-blur-lg shadow-sm rounded-sm min-h-screen lg:min-h-full w-full">
+        <div className="lg:col-span-4 backdrop-blur-lg rounded-sm min-h-screen lg:min-h-full w-full">
           <Title 
             fontSize="40px"
             fontSizeLg="70px"
@@ -232,7 +232,7 @@ const BirthdayWish = () => {
           </div>
         </div>
         <div className="lg:col-span-3 flex flex-col items-center justify-center relative py-10 mx-4 lg:mx-2 min-h-screen lg:min-h-0">
-          <div className="backdrop-blur-md bg-white/30 rounded shadow-sm lg:p-6 p-4 w-full lg:max-w-lg max-w-sm">
+          <div className="backdrop-blur-md rounded lg:p-6 p-4 w-full lg:max-w-lg max-w-sm">
             <Title 
               fontSize="30px"
               fontSizeLg="50px"
