@@ -18,6 +18,11 @@ export const Page = styled.div`
   animation: ${colorShift} 15s infinite;
 `
 
+const scaleUp = keyframes`
+  50% {
+    transform: scale(1.05)
+  }
+`
 interface ImgProps {
   width?: string
   height?: string
@@ -25,6 +30,7 @@ interface ImgProps {
 export const Img = styled.img<ImgProps>`
   width: ${props => `${props.width}`};
   height: ${props => `${props.height}`};
+  animation: ${scaleUp} 15s infinite
 `
 
 const upDown = keyframes`
