@@ -11,11 +11,15 @@ const flipBottom = keyframes`
   }
 `
 
+
 export const FlipCardWrapper = styled.div`
+  @media (min-width: 1024px) {
+    font-size: 3rem;
+  }
   .flip-card {
     display: inline-flex;
     flex-direction: column;
-    font-size: 4rem;
+    font-size: 4.5rem;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .2);
     position: relative;
     color: rgba(255, 99, 138, 0.7);

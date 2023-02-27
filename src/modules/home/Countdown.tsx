@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { Circle, Img } from "../birthdayWish/birthdayWish.styled"
 import { FlipCardWrapper } from "./home.styled"
 
 const Countdown = () => {
@@ -89,15 +90,19 @@ const Countdown = () => {
     }
   }
   return (
-    <div className="min-h-screen flex justify-center">
-      <div className="max-w-screen-2xl w-full flex items-center justify-center">
+    <div className="min-h-screen flex justify-center bg-gradient-to-r from-violet-500 to-fuchsia-500">
+      <div className="max-w-screen-2xl w-full flex justify-center items-center mt-36">
         { 
           hasValue ? 
-          <div className="flex items-center flex-col">
-            <div className="flex items-center flex-wrap gap-x-6">
-              <div className="flex flex-col">
-                <div>Days</div>
-                <div className="flex gap-x-3">
+          <div className="flex items-center flex-col relative">
+            <div className="bg-amber-200/70 lg:w-96 w-64 rounded-full lg:h-96 h-64 shadow-amber-300/70 shadow-2xl absolute lg:-top-72 -top-32"/>
+            <Img
+              src="/src/assets/4.png"
+              className="absolute lg:w-80 lg:-top-72 w-64 -top-32"
+            />
+            <div className="flex items-center flex-wrap lg:gap-x-10 gap-x-5 justify-center z-10 mt-10 gap-y-5">
+              <div className="flex flex-col gap-y-2">
+                <div className="flex gap-x-2">
                   <FlipCardWrapper>
                     <div className="flip-card" data-day-tens>
                       <div className="top">{ Math.floor(days / 10)}</div>
@@ -111,10 +116,10 @@ const Countdown = () => {
                     </div>
                   </FlipCardWrapper>
                 </div>
+                <div className="text-center text-white/80">Days</div>
               </div>
-              <div className="flex flex-col">
-                <div>Hours</div>
-                <div className="flex gap-x-3">
+              <div className="flex flex-col gap-y-2">
+                <div className="flex gap-x-2">
                   <FlipCardWrapper>
                     <div className="flip-card" data-hour-tens>
                       <div className="top">{ Math.floor(hours / 10)}</div>
@@ -128,10 +133,10 @@ const Countdown = () => {
                     </div>
                   </FlipCardWrapper>
                 </div>
+                <div className="text-center text-white/80">Hours</div>
               </div>
-              <div className="flex flex-col">
-                <div>minutes</div>
-                <div className="flex gap-x-3">
+              <div className="flex flex-col gap-y-2">
+                <div className="flex gap-x-2">
                   <FlipCardWrapper>
                     <div className="flip-card" data-minute-tens>
                       <div className="top">{ Math.floor(minutes / 10)}</div>
@@ -145,10 +150,10 @@ const Countdown = () => {
                     </div>
                   </FlipCardWrapper>
                 </div>
+                <div className="text-center text-white/80">Minutes</div>
               </div>
-              <div className="flex flex-col">
-                <div>seconds</div>
-                <div className="flex gap-x-3">
+              <div className="flex flex-col gap-y-2">
+                <div className="flex gap-x-2">
                   <FlipCardWrapper>
                     <div className="flip-card" data-second-tens>
                       <div className="top">{ Math.floor(seconds / 10)}</div>
@@ -162,6 +167,7 @@ const Countdown = () => {
                     </div>
                   </FlipCardWrapper>
                 </div>
+                <div className="text-center text-white/80">Seconds</div>
               </div>
             </div>
           </div> : 
