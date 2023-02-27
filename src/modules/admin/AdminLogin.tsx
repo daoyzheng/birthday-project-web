@@ -17,8 +17,8 @@ const AdminLogin = () => {
       setError('Email is required')
       setShowNotification(true)
       notificationTimeout = setTimeout(() => {
-        setError('')
         setShowNotification(false)
+        setError('')
       }, 2000)
       return
     }
@@ -26,8 +26,8 @@ const AdminLogin = () => {
       setError('Password is required')
       setShowNotification(true)
       notificationTimeout = setTimeout(() => {
-        setError('')
         setShowNotification(false)
+        setError('')
       }, 2000)
       return
     }

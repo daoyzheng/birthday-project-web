@@ -1,9 +1,12 @@
-import { useEffect, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import { Circle, Img, Page, ScrollDown, Title } from "./birthdayWish.styled"
 import * as THREE from 'three'
 import { ACESFilmicToneMapping, AmbientLight, AnimationMixer, PointLight, sRGBEncoding } from "three"
 // import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { Notification } from "../admin/adminLogin.styled"
+import request from "../../utils/request"
+import { AxiosResponse } from "axios"
 
 interface ILocation {
   city: string
@@ -12,6 +15,10 @@ interface ILocation {
 
 const BirthdayWish = () => {
   const [location, setLocation] = useState<ILocation>()
+  const [error, setError] = useState<string>('')
+  const [showNotification, setShowNotification] = useState<boolean>(false)
+  const [showSuccessNotification, setShowSuccessNotification] = useState<boolean>(false)
+
   useEffect(() => {
     const location = getLocation()
     setLocation(location)
@@ -23,6 +30,65 @@ const BirthdayWish = () => {
       city,
       country
     }
+  }
+  const createMessage = async (from: string, body: string) => {
+    const url = `${import.meta.env.VITE_CLIENT_API}/api/messages`
+    const method = 'post'
+    const data = { 
+      from, 
+      body,
+      country: location?.country,
+      city: location?.city
+    }
+    const config = {
+      url,
+      method,
+      data
+    }
+    try {
+      await request(config)
+      setShowSuccessNotification(true)
+      setTimeout(() => {
+        window.location.href = '/'
+      }, 1300)
+    } catch (e: any) {
+      const response = e.response as AxiosResponse
+      setError(response.data.message)
+      setShowNotification(true)
+      notificationTimeout = setTimeout(() => {
+        setError('')
+        setShowNotification(false)
+      }, 2000)
+    }
+  }
+  let notificationTimeout: any
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    clearTimeout(notificationTimeout)
+    const formElements = (e.target as HTMLFormElement).elements
+    const name = (formElements[0] as HTMLInputElement).value
+    const message = (formElements[1] as HTMLInputElement).value
+    if (!message) {
+      setError('Please enter a birthday wish, thank you')
+      setShowNotification(true)
+      notificationTimeout = setTimeout(() => {
+        setShowNotification(false)
+      }, 2000)
+      return
+    }
+    if (!name) {
+      setError('We would love to know who sent the birthday wish')
+      setShowNotification(true)
+      notificationTimeout = setTimeout(() => {
+        setShowNotification(false)
+      }, 2000)
+      return
+    }
+    await createMessage(name, message)
+    const nameInput = document.getElementById('name') as HTMLInputElement
+    if (nameInput) nameInput.value = ''
+    const messageInput = document.getElementById('message') as HTMLInputElement
+    if (messageInput) messageInput.value = ''
   }
   // useEffect(() => {
   //   const container = document.getElementById("birthday-cake")
@@ -173,18 +239,21 @@ const BirthdayWish = () => {
               className="font-semibold mb-10 text-center text-red-500/40"
             >Write a birthday wish</Title>
             <div className="text-xl">
-              <form>
+              <form onSubmit={handleSubmit} id="form">
                 <input
+                  id="name"
                   className="focus:outline-none bg-white/20 rounded-md h-12 px-2 text-slate-500 w-full mb-4"
                   placeholder="Name"
                 />
                 <textarea 
+                  id="message"
                   rows={10}
                   placeholder="Happy birthday🎂🍰"
                   className="p-2 focus:outline-none bg-white/20 w-full max-h-36 min-h-36 rounded-lg resize-none text-slate-500"
                 />
                 <div className="flex justify-end w-full mt-4">
                   <button 
+                    type="submit"
                     className="transition-colors	bg-rose-300/20 hover:bg-rose-300/30 hover:border-none focus:outline-none">Send</button>
                 </div>
               </form>
@@ -192,6 +261,12 @@ const BirthdayWish = () => {
           </div>
         </div>
       </div> 
+      <Notification className="w-fit h-12 bg-orange-400 rounded text-lg text-center p-2" show={showNotification}>
+        {error}
+      </Notification>
+      <Notification className="w-fit h-12 bg-green-400/80 rounded text-lg text-center p-2" show={showSuccessNotification}>
+        Thank you very much
+      </Notification>
     </Page>
   )
 }
