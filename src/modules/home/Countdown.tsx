@@ -89,12 +89,20 @@ const Countdown = () => {
       flipCard.append(topFlip, bottomFlip)
     }
   }
+
+  const handleClick = () => {
+    window.location.href = "/birthday-wish"
+  }
   return (
     <div className="min-h-screen flex justify-center bg-gradient-to-r from-violet-500 to-fuchsia-500">
-      <div className="max-w-screen-2xl w-full flex justify-center items-center">
+      <div className="max-w-screen-2xl w-full flex justify-center items-center relative">
+        <button 
+          onClick={handleClick}
+          className="absolute top-0 lg:right-48 right-5 lg:mt-20 mt-5 focus:outline-none border-none bg-white/30"
+        >Write a birthday wish</button>
         { 
           hasValue ? 
-          <div className="flex items-center flex-col relative mt-36">
+          <div className="flex items-center flex-col relative mt-48">
             <div className="bg-amber-200/70 lg:w-96 w-64 rounded-full lg:h-96 h-64 shadow-amber-300/70 shadow-2xl absolute lg:-top-72 -top-32"/>
             <Img
               src="/src/assets/4.png"
@@ -170,7 +178,7 @@ const Countdown = () => {
                 <div className="text-center text-white/80">Seconds</div>
               </div>
             </div>
-            <div className="mt-20 mb-10 text-center">Come back on March 11<sup>th</sup>, 2023 (MST) to celebrate Langlang's Birthday</div>
+            <div className="mt-16 mb-5 text-center">Come back on March 11<sup>th</sup>, 2023 (MST) to celebrate Langlang's Birthday</div>
           </div> : 
           <div className="fill-white">
             <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" rx="1" width="10" height="10"><animate id="spinner_c7A9" begin="0;spinner_23zP.end" attributeName="x" dur="0.2s" values="1;13" fill="freeze"/><animate id="spinner_Acnw" begin="spinner_ZmWi.end" attributeName="y" dur="0.2s" values="1;13" fill="freeze"/><animate id="spinner_iIcm" begin="spinner_zfQN.end" attributeName="x" dur="0.2s" values="13;1" fill="freeze"/><animate id="spinner_WX4U" begin="spinner_rRAc.end" attributeName="y" dur="0.2s" values="13;1" fill="freeze"/></rect><rect x="1" y="13" rx="1" width="10" height="10"><animate id="spinner_YLx7" begin="spinner_c7A9.end" attributeName="y" dur="0.2s" values="13;1" fill="freeze"/><animate id="spinner_vwnJ" begin="spinner_Acnw.end" attributeName="x" dur="0.2s" values="1;13" fill="freeze"/><animate id="spinner_KQuy" begin="spinner_iIcm.end" attributeName="y" dur="0.2s" values="1;13" fill="freeze"/><animate id="spinner_arKy" begin="spinner_WX4U.end" attributeName="x" dur="0.2s" values="13;1" fill="freeze"/></rect><rect x="13" y="13" rx="1" width="10" height="10"><animate id="spinner_ZmWi" begin="spinner_YLx7.end" attributeName="x" dur="0.2s" values="13;1" fill="freeze"/><animate id="spinner_zfQN" begin="spinner_vwnJ.end" attributeName="y" dur="0.2s" values="13;1" fill="freeze"/><animate id="spinner_rRAc" begin="spinner_KQuy.end" attributeName="x" dur="0.2s" values="1;13" fill="freeze"/><animate id="spinner_23zP" begin="spinner_arKy.end" attributeName="y" dur="0.2s" values="1;13" fill="freeze"/></rect></svg>
