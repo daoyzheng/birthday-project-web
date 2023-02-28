@@ -121,7 +121,7 @@ const Countdown = () => {
               className="absolute lg:w-80 lg:-top-72 w-64 -top-32"
             />
             <div className="flex items-center flex-wrap lg:gap-x-10 gap-x-5 justify-center z-10 mt-10 gap-y-5">
-              <div className="flex flex-col gap-y-2">
+              <div className="flex flex-col gap-y-1">
                 <div className="flex gap-x-2">
                   <FlipCardWrapper>
                     <div className="flip-card" data-day-tens>
@@ -138,7 +138,7 @@ const Countdown = () => {
                 </div>
                 <div className="text-center text-white/80">Days</div>
               </div>
-              <div className="flex flex-col gap-y-2">
+              <div className="flex flex-col gap-y-1">
                 <div className="flex gap-x-2">
                   <FlipCardWrapper>
                     <div className="flip-card" data-hour-tens>
@@ -155,7 +155,7 @@ const Countdown = () => {
                 </div>
                 <div className="text-center text-white/80">Hours</div>
               </div>
-              <div className="flex flex-col gap-y-2">
+              <div className="flex flex-col gap-y-1">
                 <div className="flex gap-x-2">
                   <FlipCardWrapper>
                     <div className="flip-card" data-minute-tens>
@@ -172,7 +172,7 @@ const Countdown = () => {
                 </div>
                 <div className="text-center text-white/80">Minutes</div>
               </div>
-              <div className="flex flex-col gap-y-2">
+              <div className="flex flex-col gap-y-1">
                 <div className="flex gap-x-2">
                   <FlipCardWrapper>
                     <div className="flip-card" data-second-tens>

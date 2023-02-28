@@ -22,6 +22,7 @@ export const FlipCardWrapper = styled.div`
     display: inline-flex;
     flex-direction: column;
     font-size: 4.5rem;
+    width: 75px;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .2);
     position: relative;
     color: rgba(255, 99, 138, 0.7);
