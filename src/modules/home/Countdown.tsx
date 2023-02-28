@@ -1,20 +1,31 @@
 import { useEffect, useRef, useState } from "react"
 import { Circle, Img } from "../birthdayWish/birthdayWish.styled"
+import dayjs, { Dayjs } from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 import { FlipCardWrapper } from "./home.styled"
 import img from '/src/assets/4.png'
+import advanced from 'dayjs/plugin/advancedFormat'
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.extend(advanced)
+dayjs.tz.setDefault('America/Edmonton')
 
 const Countdown = () => {
   const [days, setDays] = useState<number>(0)
   const [minutes, setMinutes] = useState<number>(0)
   const [hours, setHours] = useState<number>(0)
   const [seconds, setSeconds] = useState<number>(0)
+  const [timeZoneName, setTimeZoneName] = useState<string>()
   const [hasValue, setHasValue] = useState<boolean>(false)
   let interval : any
   useEffect(() => {
-    const birthday = new Date(new Date('2023-03-11T00:00:00').toLocaleString('en-US', { timeZone: 'Canada/Mountain'}))
+    const timeZoneName = dayjs().tz().format('z')
+    setTimeZoneName(timeZoneName)
+    const birthday = dayjs.tz('2023-03-11T00:00:00', 'America/Edmonton').utc()
     const initialize = () => {
-      const now = new Date(new Date().toLocaleString('en-US', {timeZone: 'Canada/Mountain'}))
-      const distance = birthday.getTime() - now.getTime()
+      const now = dayjs().tz('America/Edmonton').utc();
+      const distance = birthday.diff(now);
       if (now <= birthday) {
         const days = Math.floor(distance / (1000 * 60 * 60 * 24))
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
@@ -34,9 +45,9 @@ const Countdown = () => {
       clearInterval(interval)
     }
   }, [])
-  function flipAllCards (birthday: Date) {
-    const now = new Date(new Date().toLocaleString('en-US', {timeZone: 'Canada/Mountain'}))
-    const distance = birthday.getTime() - now.getTime()
+  function flipAllCards (birthday: Dayjs) {
+    const now = dayjs().tz('America/Denver').utc();
+    const distance = birthday.diff(now);
     if (now <= birthday) {
       const days = Math.floor(distance / (1000 * 60 * 60 * 24))
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
@@ -178,6 +189,7 @@ const Countdown = () => {
                 </div>
                 <div className="text-center text-white/80">Seconds</div>
               </div>
+              <div>{timeZoneName}</div>
             </div>
             <div className="mt-16 mb-5 text-center">Come back on March 11<sup>th</sup>, 2023 (MST) to celebrate Langlang's Birthday</div>
           </div> : 
