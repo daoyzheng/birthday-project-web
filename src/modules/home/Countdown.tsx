@@ -189,7 +189,7 @@ const Countdown = () => {
                 </div>
                 <div className="text-center text-white/80">Seconds</div>
               </div>
-              <div>{timeZoneName}</div>
+              {/* <div>{timeZoneName}</div> */}
             </div>
             <div className="mt-16 mb-5 text-center">Come back on March 11<sup>th</sup>, 2023 (MST) to celebrate Langlang's Birthday</div>
           </div> : 
