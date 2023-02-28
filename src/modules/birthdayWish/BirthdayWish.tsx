@@ -179,43 +179,43 @@ const BirthdayWish = () => {
           <Title 
             fontSize="40px"
             fontSizeLg="70px"
-            className="text-center rounded-md text-red-500/40 pt-3 z-10"
+            className="text-center rounded-md text-red-500/40 pt-3 z-50"
           >Langlang's Birthday</Title>
           <Circle
             borderRadius="100%" 
             isUpdown
             duration={5}
-            className="w-16 h-16 absolute top-0 -left-3 bg-rose-300/20 backdrop-blur-md shadow"
+            className="w-16 h-16 absolute top-0 -left-3 bg-rose-300/20 backdrop-blur-md shadow z-0"
           />
           <Circle
             borderRadius="100%" 
             isUpdown
             duration={10}
-            className="w-12 h-12 absolute top-32 right-12 bg-rose-200/30 backdrop-blur-md shadow"
+            className="w-12 h-12 absolute top-32 right-12 bg-rose-200/30 backdrop-blur-md shadow z-0"
           />
           <Circle
             borderRadius="100%" 
             duration={8}
-            className="w-14 h-14 absolute top-12 right-32 bg-rose-300/30 backdrop-blur-md shadow"
+            className="w-14 h-14 absolute top-12 right-32 bg-rose-300/30 backdrop-blur-md shadow z-0"
           />
           <Circle
             borderRadius="100%" 
             duration={5}
-            className="w-14 h-14 absolute top-64 left-32 bg-pink-200/30 backdrop-blur-md shadow"
+            className="w-14 h-14 absolute top-64 left-32 bg-pink-200/30 backdrop-blur-md shadow z-0"
           />
           <Circle
             borderRadius="100%" 
             duration={5}
             isUpdown
-            className="w-32 h-32 absolute top-64 lg:right-72 right-24 bg-pink-200/20 backdrop-blur-md shadow"
+            className="w-32 h-32 absolute top-64 lg:right-72 right-24 bg-pink-200/20 backdrop-blur-md shadow z-0"
           />
           <Circle
             borderRadius="100%" 
             duration={8}
             isUpdown
-            className="w-20 h-20 absolute -bottom-5 right-24 bg-pink-400/20 backdrop-blur-md shadow"
+            className="w-20 h-20 absolute -bottom-5 right-24 bg-pink-400/20 backdrop-blur-md shadow z-0"
           />
-          <div className="relative lg:right-10">
+          <div className="relative lg:right-10 bg-red-300 lg:top-0 top-12">
             <Img
               className="absolute right-10 lg:top-2 z-10 w-1/5 max-w-6 rotate-12"
               src={spongeBob}
@@ -229,7 +229,7 @@ const BirthdayWish = () => {
               src={splash2}
             />
           </div>
-          <div className="relative top-36 lg:left-20 bg-red-300">
+          <div className="relative lg:top-36 lg:left-20 left-8 top-72">
             <Img
               className="absolute left-0 top-0 z-10 w-2/3 max-w-24"
               src={img2}
@@ -239,10 +239,10 @@ const BirthdayWish = () => {
               src={splash1}
             />
           </div>
-          <div className="absolute bottom-10 w-full lg:hidden">
+          {/* <div className="absolute bottom-10 w-full lg:hidden">
             <div className="text-center animate-bounce">Scroll Down</div>
             <ScrollDown/>
-          </div>
+          </div> */}
         </div>
         <div className="lg:col-span-3 flex flex-col items-center justify-center relative py-10 mx-4 lg:mx-2 min-h-screen lg:min-h-0">
           <div className="backdrop-blur-md rounded lg:p-6 p-4 w-full lg:max-w-lg max-w-sm">
