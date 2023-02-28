@@ -25,7 +25,8 @@ const BirthdayWish = () => {
   const [showSuccessNotification, setShowSuccessNotification] = useState<boolean>(false)
 
   async function getLocation () {
-    const url ='http://www.geoplugin.net/json.gp'
+    const geoPluginKey = import.meta.env.VITE_GEOPLUGIN
+    const url =`https://ssl.geoplugin.net/json.gp?k=${geoPluginKey}`
     const method = 'get'
     const config = {
       url,
@@ -178,7 +179,7 @@ const BirthdayWish = () => {
           <Title 
             fontSize="40px"
             fontSizeLg="70px"
-            className="text-center rounded-md text-red-500/40 pt-3"
+            className="text-center rounded-md text-red-500/40 pt-3 z-10"
           >Langlang's Birthday</Title>
           <Circle
             borderRadius="100%" 
