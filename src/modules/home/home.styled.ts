@@ -3,11 +3,13 @@ import styled, { keyframes } from "styled-components";
 const flipTop = keyframes`
   100% {
     transform: rotateX(90deg);
+    -webkit-transform: rotateX(90deg);
   }
 `
 const flipBottom = keyframes`
   100% {
     transform: rotateX(0deg);
+    -webkit-transform: rotateX(0deg);
   }
 `
 
@@ -56,6 +58,7 @@ export const FlipCardWrapper = styled.div`
   .flip-card .top-flip {
     position: absolute;
     transform-origin: bottom;
+    -webkit-transform-origin: bottom;
     animation: ${flipTop} 250ms ease-in;
   }
 
@@ -63,7 +66,9 @@ export const FlipCardWrapper = styled.div`
     position: absolute;
     bottom: 0;
     transform-origin: top;
+    -webkit-transform-origin: top;
     transform: rotateX(90deg);
+    -webkit-transform: rotateX(90deg);
     animation: ${flipBottom} 250ms ease-out 250ms;
   }
 `
