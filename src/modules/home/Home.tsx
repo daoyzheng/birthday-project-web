@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react"
 import { Img, Title } from "../birthdayWish/birthdayWish.styled"
 import Countdown from "./Countdown"
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.tz.setDefault('America/Edmonton')
 
 const Home = () => {
   const [isBirthday, setIsBirthday] = useState<boolean>(false)
   useEffect(() => {
-    const now = new Date(new Date().toLocaleString('en-US', {timeZone: 'Canada/Mountain'}))
-    const birthday = new Date(new Date('2023-03-11T00:00:00').toLocaleString('en-US', { timeZone: 'Canada/Mountain'}))
+    const birthday = dayjs.tz('2023-03-11T00:00:00', 'America/Edmonton').utc()
+    const now = dayjs().tz('America/Edmonton').utc();
     setIsBirthday(now >= birthday)
-
   }, [])
   return isBirthday ? 
     (
