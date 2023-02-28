@@ -33,6 +33,7 @@ export const FlipCardWrapper = styled.div`
   .flip-card .bottom-flip,
   .flip-card .top-flip {
     height: .75em;
+    width: 75px;
     line-height: 1;
     padding: .25em;
     overflow: hidden;
