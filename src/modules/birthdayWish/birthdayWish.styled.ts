@@ -64,6 +64,7 @@ export const Title = styled.div<ITitleProps>`
   font-family: cookieMonster;
   font-size: ${props => props.fontSize};
   margin-top: ${props => props.marginTop};
+  z-index: 50;
 
   @media (min-width: 1024px) {
     font-size: ${props => props.fontSizeLg};
