@@ -173,19 +173,19 @@ const BirthdayWish = () => {
   // }, [])
 
   return (
-    <Page className="min-h-screen flex items-center justify-center lg:h-screen">
+    <Page className="min-h-screen flex items-center justify-center lg:h-screen overflow-x-hidden">
       <div className="lg:grid lg:grid-cols-7 max-w-screen-2xl w-full bg-white/20 backgdrop-blur-lg shadow-md rounded h-3/4 mx-4 my-10">
         <div className="lg:col-span-4 backdrop-blur-lg rounded-sm min-h-screen lg:min-h-full w-full">
           <Title 
             fontSize="40px"
             fontSizeLg="70px"
-            className="text-center rounded-md text-red-500/40 pt-3 z-50"
+            className="text-center rounded-md text-red-500/40 pt-3 z-50 mt-5 lg:mt-0"
           >Langlang's Birthday</Title>
           <Circle
             borderRadius="100%" 
             isUpdown
             duration={5}
-            className="w-16 h-16 absolute top-0 -left-3 bg-rose-300/20 backdrop-blur-md shadow z-0"
+            className="w-16 h-16 absolute top-30 -left-3 bg-rose-300/20 backdrop-blur-md shadow z-0"
           />
           <Circle
             borderRadius="100%" 
@@ -196,7 +196,7 @@ const BirthdayWish = () => {
           <Circle
             borderRadius="100%" 
             duration={8}
-            className="w-14 h-14 absolute top-12 right-32 bg-rose-300/30 backdrop-blur-md shadow z-0"
+            className="w-14 h-14 absolute top-32 lg:top-12 right-32 bg-rose-300/30 backdrop-blur-md shadow z-0"
           />
           <Circle
             borderRadius="100%" 
