@@ -1,5 +1,10 @@
 import { FormEvent, useEffect, useRef, useState } from "react"
 import { Circle, Img, Page, ScrollDown, Title } from "./birthdayWish.styled"
+import spongeBob from '/src/assets/sponge-bob.png'
+import img1 from '/src/assets/1.png'
+import splash2 from '/src/assets/splash2.png'
+import img2 from '/src/assets/2.png'
+import splash1 from '/src/assets/splash1.png'
 import * as THREE from 'three'
 import { ACESFilmicToneMapping, AmbientLight, AnimationMixer, PointLight, sRGBEncoding } from "three"
 // import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
@@ -212,25 +217,25 @@ const BirthdayWish = () => {
           <div className="relative lg:right-10">
             <Img
               className="absolute right-10 lg:top-2 z-10 w-1/5 max-w-6 rotate-12"
-              src="/src/assets/sponge-bob.png"
+              src={spongeBob}
             />
             <Img
               className="absolute right-10 top-5 z-10 w-2/4 max-w-20"
-              src="/src/assets/1.png"
+              src={img1}
             />
             <Img
               className="absolute right-8 top-5 w-2/4 max-w-20"
-              src="/src/assets/splash2.png"
+              src={splash2}
             />
           </div>
           <div className="relative top-36 lg:left-20 bg-red-300">
             <Img
               className="absolute left-0 top-0 z-10 w-2/3 max-w-24"
-              src="/src/assets/2.png"
+              src={img2}
             />
             <Img
               className="absolute left-0 top-0 w-2/3 max-w-26"
-              src="/src/assets/splash1.png"
+              src={splash1}
             />
           </div>
           <div className="absolute bottom-10 w-full lg:hidden">
