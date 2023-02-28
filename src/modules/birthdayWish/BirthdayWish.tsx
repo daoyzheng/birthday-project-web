@@ -175,7 +175,7 @@ const BirthdayWish = () => {
   return (
     <Page className="min-h-screen flex items-center justify-center lg:h-screen overflow-x-hidden">
       <div className="lg:grid lg:grid-cols-7 max-w-screen-2xl w-full bg-white/20 backgdrop-blur-lg shadow-md rounded h-3/4 mx-4 my-10">
-        <div className="lg:col-span-4 backdrop-blur-lg rounded-sm min-h-screen lg:min-h-full w-full">
+        <div className="lg:col-span-4 backdrop-blur-lg rounded-sm min-h-screen lg:min-h-full w-full z-20">
           <Title 
             fontSize="40px"
             fontSizeLg="70px"
