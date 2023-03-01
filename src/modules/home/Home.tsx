@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
-import { Img, Title } from "../birthdayWish/birthdayWish.styled"
+import { Title } from "../birthdayWish/birthdayWish.styled"
 import Countdown from "./Countdown"
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
+import Messages from "./Messages"
+import Meteor from "./Meteor"
+import Star from "./Star"
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault('America/Edmonton')
@@ -15,16 +18,20 @@ const Home = () => {
     const now = dayjs().tz('America/Edmonton').utc();
     setIsBirthday(now >= birthday)
   }, [])
-  return isBirthday ? 
+  return !isBirthday ? 
     (
-      <div className="min-h-screen flex justify-center bg-gradient-to-r from-violet-500 to-fuchsia-500">
-        <div className="max-w-screen-2xl w-full">
-          <Title
-            fontSize="40px"
-            fontSizeLg="90px"
-            className="text-center rounded-md mt-12"
-          >Happy Birthday Langlang</Title>
-
+      <div className="min-h-screen flex justify-center py-20 bg-black">
+        <Meteor/>
+        <Star/>
+        <div className="bg-white/20 w-4/5 shadow rounded-md backdrop-blur-sm z-10">
+          <div className="max-w-screen-2xl w-full">
+            <Title
+              fontSize="40px"
+              fontSizeLg="90px"
+              className="text-center rounded-md mt-12 text-white/80"
+            >Happy Birthday Langlang</Title>
+          </div>
+          <Messages/>
         </div>
       </div>
     ) :
