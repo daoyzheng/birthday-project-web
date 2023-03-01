@@ -88,6 +88,32 @@ const meteor = keyframes`
   }
 `
 
+export const Frame = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  background: rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
+`
+
+export const Canvas = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  background-image: url(/src/assets/home-background.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+`
+
 const flick = keyframes`
   0%,
   100% {

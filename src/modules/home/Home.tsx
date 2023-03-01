@@ -7,6 +7,7 @@ import timezone from 'dayjs/plugin/timezone'
 import Messages from "./Messages"
 import Meteor from "./Meteor"
 import Star from "./Star"
+import { Canvas, Frame } from "./home.styled"
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault('America/Edmonton')
@@ -20,10 +21,14 @@ const Home = () => {
   }, [])
   return !isBirthday ? 
     (
-      <div className="min-h-screen flex justify-center py-20 bg-black">
-        <Meteor/>
-        <Star/>
-        <div className="bg-white/20 w-4/5 shadow rounded-md backdrop-blur-sm z-10">
+      <div className="min-h-screen flex justify-center py-20">
+        <Frame>
+          <Canvas>
+            <Meteor/>
+            <Star/>
+          </Canvas>
+        </Frame>
+        <div className="bg-white/20 w-3/4 shadow rounded-md backdrop-blur-sm z-10 max-h-4/5">
           <div className="max-w-screen-2xl w-full">
             <Title
               fontSize="40px"
@@ -32,6 +37,11 @@ const Home = () => {
             >Happy Birthday Langlang</Title>
           </div>
           <Messages/>
+          {/* <div className="bg-black">
+            <div className="min-h-screen">HELLO</div>
+            <div className="min-h-screen">HELLO</div>
+            <div className="min-h-screen">HELLO</div>
+          </div> */}
         </div>
       </div>
     ) :
