@@ -20,7 +20,7 @@ const Home = () => {
     const now = dayjs().tz('America/Edmonton').utc();
     setIsBirthday(now >= birthday)
   }, [])
-  return isBirthday ? 
+  return !isBirthday ? 
     (
       <div className="min-h-screen flex justify-center py-20">
         <Frame>
