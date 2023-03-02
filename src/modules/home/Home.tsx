@@ -20,7 +20,7 @@ const Home = () => {
     const now = dayjs().tz('America/Edmonton').utc();
     setIsBirthday(now >= birthday)
   }, [])
-  return !isBirthday ? 
+  return isBirthday ? 
     (
       <div className="min-h-screen flex justify-center py-20">
         <Frame>
@@ -29,7 +29,7 @@ const Home = () => {
             <Star/>
           </Canvas>
         </Frame>
-        <Container className="bg-white/20 lg:w-3/4 w-full mx-5 shadow rounded-md backdrop-blur-sm z-10 max-h-80vh overflow-auto scroll-smooth">
+        <Container className="bg-white/20 lg:w-3/5 w-full mx-5 shadow rounded-md backdrop-blur-sm z-10 max-h-80vh overflow-auto scroll-smooth">
           <div className="max-w-screen-2xl w-full">
             <Title
               fontSize="40px"
@@ -45,7 +45,7 @@ const Home = () => {
           <div className="h-96">HELLO</div>
           <div className="h-96">HELLO</div>
         </Container>
-        <Messages/>
+        <Messages show={false}/>
       </div>
     ) :
     (

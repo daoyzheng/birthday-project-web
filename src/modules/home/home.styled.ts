@@ -110,6 +110,13 @@ export const Container = styled.div`
   }
 `
 
+export const MessageList = styled.div`
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+`
+
 export const Frame = styled.div`
   position: absolute;
   top: 0;

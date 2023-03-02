@@ -93,6 +93,26 @@ const Admin = () => {
     }
   }
 
+  const handleCityChange = (e: ChangeEvent) => {
+    if (selectedMessage) {
+      const message = { 
+        ...selectedMessage, 
+        city: (e.target as HTMLInputElement).value
+      }
+      setSelectedMessage(message)
+    }
+  }
+
+  const handleCountryChange = (e: ChangeEvent) => {
+    if (selectedMessage) {
+      const message = { 
+        ...selectedMessage, 
+        country: (e.target as HTMLInputElement).value
+      }
+      setSelectedMessage(message)
+    }
+  }
+
   const handleLogout = () => {
     localStorage.removeItem('accessToken')
     window.location.href="/admin/login"
@@ -149,8 +169,8 @@ const Admin = () => {
       </div>
       {
         showDialog &&
-        <Dialog className="fixed left-auto top-1/4 bg-slate-700/70 backdrop-opacity-70 w-1/4 min-h-fit h-1/2 rounded backdrop-sepia-0 backdrop-blur-md">
-          <div className="p-3 mt-4">
+        <Dialog className="fixed left-auto top-1/4 bg-slate-700/70 backdrop-opacity-70 w-1/4 min-h-fit h-fit rounded backdrop-sepia-0 backdrop-blur-md">
+          <div className="p-3 my-4">
             <form onSubmit={handleSubmit}>
               <div className="font-semibold mb-2">From:</div>
               <input
@@ -166,6 +186,20 @@ const Admin = () => {
                 className="focus:outline-none border-b-2 bg-transparent w-full max-h-40"
                 value={selectedMessage?.body}
                 onChange={handleBodyChange}
+              />
+              <div className="font-semibold mb-2">City:</div>
+              <input
+                readOnly={action === 'delete'}
+                className="focus:outline-none bg-transparent w-full border-b-2 mb-8"
+                value={selectedMessage?.city}
+                onChange={handleCityChange}
+              />
+              <div className="font-semibold mb-2">Country:</div>
+              <input
+                readOnly={action === 'delete'}
+                className="focus:outline-none bg-transparent w-full border-b-2 mb-8"
+                value={selectedMessage?.country}
+                onChange={handleCountryChange}
               />
               <div className="flex items-center justify-around mt-12">
                 <button 
