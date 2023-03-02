@@ -46,7 +46,7 @@ const Countdown = () => {
     }
   }, [])
   function flipAllCards (birthday: Dayjs) {
-    const now = dayjs().tz('America/Denver').utc();
+    const now = dayjs().tz('America/Edmonton').utc();
     const distance = birthday.diff(now);
     if (now <= birthday) {
       const days = Math.floor(distance / (1000 * 60 * 60 * 24))
