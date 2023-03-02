@@ -88,6 +88,28 @@ const meteor = keyframes`
   }
 `
 
+export const Container = styled.div`
+  ::-webkit-scrollbar {
+    width: 0.5em;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.65);
+  }
+  @media (min-width: 1024px) {
+    ::-webkit-scrollbar {
+      width: 0.7em;
+    }
+  }
+`
+
 export const Frame = styled.div`
   position: absolute;
   top: 0;

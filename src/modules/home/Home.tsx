@@ -7,7 +7,8 @@ import timezone from 'dayjs/plugin/timezone'
 import Messages from "./Messages"
 import Meteor from "./Meteor"
 import Star from "./Star"
-import { Canvas, Frame } from "./home.styled"
+import { Canvas, Container, Frame } from "./home.styled"
+import BirthdayCake from "./BirthdayCake"
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault('America/Edmonton')
@@ -28,21 +29,23 @@ const Home = () => {
             <Star/>
           </Canvas>
         </Frame>
-        <div className="bg-white/20 w-3/4 shadow rounded-md backdrop-blur-sm z-10 max-h-4/5">
+        <Container className="bg-white/20 lg:w-3/4 w-full mx-5 shadow rounded-md backdrop-blur-sm z-10 max-h-80vh overflow-auto scroll-smooth">
           <div className="max-w-screen-2xl w-full">
             <Title
               fontSize="40px"
               fontSizeLg="90px"
-              className="text-center rounded-md mt-12 text-white/80"
+              className="text-center rounded-md mt-8 text-white/80"
             >Happy Birthday Langlang</Title>
           </div>
-          <Messages/>
-          {/* <div className="bg-black">
-            <div className="min-h-screen">HELLO</div>
-            <div className="min-h-screen">HELLO</div>
-            <div className="min-h-screen">HELLO</div>
-          </div> */}
-        </div>
+          <BirthdayCake/>
+          <div className="h-min-screen">HELLO</div>
+          <div className="h-96">HELLO</div>
+          <div className="h-96">HELLO</div>
+          <div className="h-96">HELLO</div>
+          <div className="h-96">HELLO</div>
+          <div className="h-96">HELLO</div>
+        </Container>
+        <Messages/>
       </div>
     ) :
     (
