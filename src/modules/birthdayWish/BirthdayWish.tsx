@@ -63,7 +63,7 @@ const BirthdayWish = () => {
       setShowSuccessNotification(true)
       setTimeout(() => {
         window.location.href = '/'
-      }, 1300)
+      }, 1000)
     } catch (e: any) {
       const response = e.response as AxiosResponse
       setError(response.data.message)
