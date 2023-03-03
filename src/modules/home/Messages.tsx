@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion"
 import { useCallback, useEffect, useState } from "react"
 import { Message } from "../../interfaces/message"
 import request from "../../utils/request"
@@ -10,6 +11,7 @@ const Messages = ({ show }: Props) => {
   const [messages, setMessages] = useState<Message[]>([])
   const [messagesToShow, setMessagesToShow] = useState<Message[]>([])
   const [messagesLeft, setMessagesLeft] = useState<Message[]>([])
+  const [isMinimized, setMinimize] = useState<boolean>(false)
   async function fetchMessages () {
     const url = `${import.meta.env.VITE_CLIENT_API}/api/messages`
     const method = 'get'
@@ -20,7 +22,6 @@ const Messages = ({ show }: Props) => {
     const res = await request(config)
     const { data } = res
     const shuffledMessags = shuffle(data)
-    console.log('hshsh', shuffledMessags)
     setMessages([...shuffledMessags])
     setMessagesLeft([...shuffledMessags])
   }
@@ -37,7 +38,7 @@ const Messages = ({ show }: Props) => {
     return [...messages]
   }
   const addMessage = useCallback(
-    (msg: Message) => {
+    (msg: Message, timeOutTime: number) => {
       setMessagesToShow(messages => [...messages, msg])
       setTimeout(() => {
         setMessagesToShow(current => {
@@ -45,12 +46,12 @@ const Messages = ({ show }: Props) => {
           n.shift()
           return n
         })
-      }, 13500)
+      }, timeOutTime)
     },
     [setMessagesToShow]
   )
 
-  function rotateMessage () {
+  function rotateMessage (timeOutTime: number) {
     const currentMessage = messagesLeft.shift()
     if (messagesLeft.length === 0) {
       const shuffledMessags = shuffle(messages)
@@ -59,7 +60,7 @@ const Messages = ({ show }: Props) => {
       setMessagesLeft(messagesLeft)
     }
     if (!currentMessage) return
-    addMessage(currentMessage)
+    addMessage(currentMessage, timeOutTime)
   }
   let interval : any
   useEffect(() => {
@@ -67,15 +68,18 @@ const Messages = ({ show }: Props) => {
   }, [])
   useEffect(() => {
     if (messages.length > 0) {
+      setTimeout(() => {
+        rotateMessage(13000)
+      }, 500)
       interval = setInterval(() => {
-        rotateMessage()
+        rotateMessage(13500)
       }, 7000)
     }
     return () => clearInterval(interval)
-  }, [messages])
+  }, [messages, messagesLeft])
 
   const toggleView = () => {
-    console.log('here')
+    setMinimize(!isMinimized)
   }
 
   const handleMouseLeave = () => {
@@ -100,28 +104,62 @@ const Messages = ({ show }: Props) => {
   }
   return (
     <div className="absolute bottom-0 right-0 z-10 mr-4">
-      <MessageList 
-        id="message-list"
-        className="h-fit hover:bg-white/20 hover:backdrop-blur-md hover:shadow-md hover:rounded-md p-2" 
-        onMouseLeave={handleMouseLeave} 
-        onMouseEnter={handleMouseOver}
-      >
+      {
+        isMinimized &&
+        <div 
+          onClick={toggleView} 
+          className="mr-5 w-fit bg-white/30 backdrop-blur-md shadow-md px-3 py-1 rounded-tr-md rounded-tl-md cursor-pointer"
+        >HELLO</div>
+      }
         {
-          messagesToShow.map((message, index) => {
-            return (
-              index < 2 &&
-              <div key={message.id} className="bg-white/20 backdrop-blur-md shadow-sm w-full my-3 p-4 rounded-md">
-                <div className="">{message.from}:</div>
-                <div className="ml-12 my-2">{message.body}</div>
-                <div className="flex items-center gap-x-1 justify-end mr-6">
-                  <div className="">{message.city},</div>
-                  <div className="">{message.country}</div>
-                </div>
-              </div>
-            )
-          })
+          !isMinimized &&
+          <AnimatePresence>
+            <motion.div 
+              exit={{ 
+                opacity: isMinimized ? 0 : 1,
+                scale: isMinimized ? 0 : 1
+              }} 
+              transition={{ duration: 2 }}
+            >
+              <MessageList 
+                id="message-list"
+                className="h-fit hover:bg-white/20 hover:backdrop-blur-md hover:shadow-md hover:rounded-md p-2" 
+                onMouseLeave={handleMouseLeave} 
+                onMouseEnter={handleMouseOver}
+              >
+                <AnimatePresence>
+                {
+                  messagesToShow.map((message, index) => {
+                    return (
+                      index < 2 &&
+                      <motion.div 
+                        layout
+                        exit={{ opacity: 0, scale: .8 }} 
+                        key={message.id} 
+                        initial={{ opacity: 0, scale: .8}} 
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ 
+                          ease: "easeIn", 
+                          duration: 0.3, 
+                        }}
+                      >
+                        <div key={message.id} className="bg-white/20 backdrop-blur-md shadow-sm w-full my-3 p-4 rounded-md">
+                          <div className="">{message.from}:</div>
+                          <div className="ml-12 my-2">{message.body}</div>
+                          <div className="flex items-center gap-x-1 justify-end mr-6">
+                            <div className="">{message.city},</div>
+                            <div className="">{message.country}</div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )
+                  })
+                }
+                </AnimatePresence>
+              </MessageList>
+            </motion.div>
+          </AnimatePresence>
         }
-      </MessageList>
     </div>
   )
 }
