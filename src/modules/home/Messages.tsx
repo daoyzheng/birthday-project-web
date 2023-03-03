@@ -72,7 +72,7 @@ const Messages = ({ show }: Props) => {
       }, 7000)
     }
     return () => clearInterval(interval)
-  }, [messages, messagesLeft])
+  }, [messages])
 
   const toggleView = () => {
     console.log('here')
@@ -81,17 +81,19 @@ const Messages = ({ show }: Props) => {
   const handleMouseLeave = () => {
     const messageListEl = document.getElementById('message-list')
     if (!messageListEl) return
-    const div = messageListEl.firstChild
-    if (div) {
-      div.removeEventListener('click', toggleView)
-      div.remove()
+    const divs = messageListEl.querySelectorAll('.minimize')
+    for (let i = 0; i<divs.length; i++) {
+      divs[i].removeEventListener('click', toggleView)
+      divs[i].remove()
     }
   }
   const handleMouseOver = () => {
     const messageListEl = document.getElementById('message-list')
     if (!messageListEl) return
+    const firstChild = messageListEl.firstChild as HTMLDivElement
+    if (firstChild.classList.contains('minimize')) return
     const div = document.createElement('div')
-    div.classList.add('mt-3', 'cursor-pointer', 'w-fit', 'ml-4')
+    div.classList.add('mt-3', 'cursor-pointer', 'w-fit', 'ml-4', 'minimize')
     div.textContent = 'Min'
     messageListEl.insertBefore(div, messageListEl.firstChild)
     div.addEventListener('click', toggleView)
