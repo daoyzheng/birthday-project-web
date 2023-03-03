@@ -59,6 +59,7 @@ interface ITitleProps {
   marginTop?: string
   fontSize: string
   fontSizeLg: string
+  fontSizeXl?: string
 }
 export const Title = styled.div<ITitleProps>`
   font-family: cookieMonster;
@@ -68,6 +69,9 @@ export const Title = styled.div<ITitleProps>`
 
   @media (min-width: 1024px) {
     font-size: ${props => props.fontSizeLg};
+  }
+  @media (min-width: 1280px) {
+    font-size: ${props => props.fontSizeXl ? props.fontSizeXl : props.fontSizeLg}
   }
 `
 

@@ -5,9 +5,10 @@ import request from "../../utils/request"
 import { MessageList } from "./home.styled"
 
 interface Props {
-  show: boolean
+  className?: string
 }
-const Messages = ({ show }: Props) => {
+
+const Messages = ({ className }: Props) => {
   const [messages, setMessages] = useState<Message[]>([])
   const [messageToShow, setMessageToShow] = useState<Message|null>(null)
   const [messagesLeft, setMessagesLeft] = useState<Message[]>([])
@@ -49,6 +50,7 @@ const Messages = ({ show }: Props) => {
 
   function rotateMessage (timeOutTime: number) {
     const currentMessage = messagesLeft.shift()
+    console.log(messagesLeft.length)
     if (messagesLeft.length === 0) {
       const shuffledMessags = shuffle(messages)
       setMessagesLeft(shuffledMessags)
@@ -63,6 +65,7 @@ const Messages = ({ show }: Props) => {
     fetchMessages()
   }, [])
   useEffect(() => {
+    clearInterval(interval)
     if (messages.length > 0) {
       setTimeout(() => {
         rotateMessage(9000)
@@ -91,7 +94,8 @@ const Messages = ({ show }: Props) => {
     const messageListEl = document.getElementById('message-list')
     if (!messageListEl) return
     const firstChild = messageListEl.firstChild as HTMLDivElement
-    if (firstChild.classList.contains('minimize')) return
+    if (firstChild)
+      if (firstChild.classList.contains('minimize')) return
     const div = document.createElement('div')
     div.classList.add('mt-3', 'cursor-pointer', 'w-fit', 'ml-4', 'minimize')
     div.textContent = 'Min'
@@ -99,7 +103,7 @@ const Messages = ({ show }: Props) => {
     div.addEventListener('click', toggleView)
   }
   return (
-    <div className="absolute bottom-0 right-0 z-10 lg:mr-6">
+    <div className={className}>
       {
         isMinimized &&
         <div 
