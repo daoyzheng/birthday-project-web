@@ -47,7 +47,7 @@ const BirthdayCake = () => {
       renderer.toneMapping = ACESFilmicToneMapping
       renderer.outputEncoding = sRGBEncoding
 
-      camera.position.z = 2.5
+      camera.position.z = 3
       camera.position.y = 1
       function animate () {
         requestAnimationFrame(animate)

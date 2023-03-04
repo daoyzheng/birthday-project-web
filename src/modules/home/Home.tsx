@@ -9,6 +9,7 @@ import Meteor from "./Meteor"
 import Star from "./Star"
 import { Canvas, Container, Frame } from "./home.styled"
 import BirthdayCake from "./BirthdayCake"
+import MusicPlayer from "./MusicPlayer"
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault('America/Edmonton')
@@ -36,13 +37,14 @@ const Home = () => {
   }, [])
   return !isBirthday ? 
     (
-      <div className="min-h-screen flex lg:items-stretch items-center lg:justify-center flex-col lg:flex-row lg:py-20 pt-10">
+      <div className="min-h-screen flex lg:items-stretch items-center lg:justify-center flex-col lg:flex-row lg:py-16 pt-10">
         <Frame>
           <Canvas>
             <Meteor/>
             <Star/>
           </Canvas>
         </Frame>
+        <MusicPlayer/>
         <Container 
           className="lg:w-3/5 lg:mx-5 z-10 max-h-80vh lg:h-auto h-100 bg-white/20 shadow-xl w-6/7 rounded-lg backdrop-blur-sm overflow-auto scroll-smooth relative lg:-left-44"
         >
