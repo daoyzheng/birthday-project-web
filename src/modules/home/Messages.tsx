@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react"
 import { Message } from "../../interfaces/message"
 import request from "../../utils/request"
 import { MessageList } from "./home.styled"
+import minimize from '/src/assets/minimize.svg'
 
 interface Props {
   className?: string
@@ -81,10 +82,12 @@ const Messages = ({ className, isMinimizable }: Props) => {
   }, [messages, messagesLeft])
 
   const toggleView = () => {
+    if (!isMinimizable) return
     setMinimize(!isMinimized)
   }
 
   const handleMouseLeave = () => {
+    if (!isMinimizable) return
     const messageListEl = document.getElementById('message-list')
     if (!messageListEl) return
     const divs = messageListEl.querySelectorAll('.minimize')
@@ -94,25 +97,26 @@ const Messages = ({ className, isMinimizable }: Props) => {
     }
   }
   const handleMouseOver = () => {
+    if (!isMinimizable) return
     const messageListEl = document.getElementById('message-list')
     if (!messageListEl) return
     const firstChild = messageListEl.firstChild as HTMLDivElement
     if (firstChild)
       if (firstChild.classList.contains('minimize')) return
     const div = document.createElement('div')
-    div.classList.add('mt-3', 'cursor-pointer', 'w-fit', 'ml-4', 'minimize')
-    div.textContent = 'Min'
+    div.classList.add('mt-3', 'cursor-pointer', 'w-fit', 'ml-2', 'minimize', 'border','px-2', 'border-white/30', 'rounded-md', 'hover:border-white/40')
+    div.textContent = '_'
     messageListEl.insertBefore(div, messageListEl.firstChild)
     div.addEventListener('click', toggleView)
   }
   return (
     <div className={className}>
       {
-        isMinimized &&
+        isMinimizable && isMinimized &&
         <div 
           onClick={toggleView} 
           className="mr-5 w-fit bg-white/30 backdrop-blur-md shadow-md px-3 py-1 rounded-tr-md rounded-tl-md cursor-pointer hover:bg-white/50"
-        >HELLO</div>
+        >Show</div>
       }
         {
           !isMinimized &&
@@ -126,7 +130,7 @@ const Messages = ({ className, isMinimizable }: Props) => {
             >
               <MessageList 
                 id="message-list"
-                className="hover:bg-white/20 hover:backdrop-blur-md hover:shadow-md hover:rounded-md p-2" 
+                className={`${isMinimizable && 'hover:bg-white/20 hover:backdrop-blur-md hover:shadow-md hover:rounded-md'} p-2`}
                 onMouseLeave={handleMouseLeave} 
                 onMouseEnter={handleMouseOver}
               >

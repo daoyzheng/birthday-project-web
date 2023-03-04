@@ -44,7 +44,7 @@ const Home = () => {
           </Canvas>
         </Frame>
         <Container 
-          className="lg:w-3/5 lg:mx-5 z-10 max-h-80vh bg-white/20 shadow-xl w-6/7 rounded-lg backdrop-blur-sm overflow-auto scroll-smooth relative lg:-left-44"
+          className="lg:w-3/5 lg:mx-5 z-10 max-h-80vh lg:h-auto h-100 bg-white/20 shadow-xl w-6/7 rounded-lg backdrop-blur-sm overflow-auto scroll-smooth relative lg:-left-44"
         >
           <div className="max-w-screen-2xl w-full">
             <Title
@@ -58,7 +58,10 @@ const Home = () => {
         </Container>
         {
           windowSize.width >= 1024 &&
-          <Messages className="absolute bottom-0 right-0 z-10 lg:mr-6"/>
+          <Messages 
+            className="absolute bottom-0 right-0 z-10 lg:mr-6"
+            isMinimizable
+          />
         }
         {
           windowSize.width < 1024 &&
