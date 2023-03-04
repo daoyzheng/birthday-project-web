@@ -37,7 +37,7 @@ const Home = () => {
   }, [])
   return !isBirthday ? 
     (
-      <div className="min-h-screen flex lg:items-stretch items-center lg:justify-center flex-col lg:flex-row lg:py-16 pt-10">
+      <div className="min-h-screen flex lg:items-stretch items-center lg:justify-center flex-col lg:flex-row lg:py-16 pt-14">
         <Frame>
           <Canvas>
             <Meteor/>

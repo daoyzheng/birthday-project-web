@@ -1,6 +1,8 @@
 const MusicPlayer = () => {
   return (
-    <div>HELLO</div>
+    <div className="absolute top-4">
+      <div>HELLO</div>
+    </div>
   )
 }
 

@@ -20,7 +20,7 @@ const BirthdayCake = () => {
 
       const loader = new GLTFLoader()
       loader.load(
-        '/src/assets/3d/birthdayCake_3D.glb',
+        '/src/assets/3d/cake.glb',
         gltf => {
           const boundingBox = new Box3().setFromObject(gltf.scene)
           const center = boundingBox.getCenter(new Vector3())
