@@ -52,7 +52,6 @@ const Messages = ({ className, isMinimizable }: Props) => {
 
   function rotateMessage (timeOutTime: number) {
     const currentMessage = messagesLeft.shift()
-    console.log(messagesLeft.length)
     if (messagesLeft.length === 0) {
       const shuffledMessags = shuffle(messages)
       setMessagesLeft(shuffledMessags)

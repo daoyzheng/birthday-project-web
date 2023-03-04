@@ -1,14 +1,11 @@
-import { FormEvent, useEffect, useRef, useState } from "react"
-import { Circle, Img, Page, ScrollDown, Title } from "./birthdayWish.styled"
+import { FormEvent, useEffect, useState } from "react"
+import { Circle, Img, Page, Title } from "./birthdayWish.styled"
 import spongeBob from '/src/assets/sponge-bob.png'
 import img1 from '/src/assets/1.png'
 import splash2 from '/src/assets/splash2.png'
 import img2 from '/src/assets/2.png'
 import splash1 from '/src/assets/splash1.png'
-import * as THREE from 'three'
-import { ACESFilmicToneMapping, AmbientLight, AnimationMixer, PointLight, sRGBEncoding } from "three"
 // import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { Notification } from "../admin/adminLogin.styled"
 import request from "../../utils/request"
 import { AxiosResponse } from "axios"
@@ -103,74 +100,6 @@ const BirthdayWish = () => {
     const messageInput = document.getElementById('message') as HTMLInputElement
     if (messageInput) messageInput.value = ''
   }
-  // useEffect(() => {
-  //   const container = document.getElementById("birthday-cake")
-  //   const clock = new THREE.Clock()
-  //   if (container) {
-  //     const scene = new THREE.Scene();
-  //     const camera = new THREE.PerspectiveCamera( 75, container.clientWidth / container.clientHeight, 0.1, 1000 );
-  //     const renderer = new THREE.WebGLRenderer({ 
-  //       antialias: true,
-  //       alpha: true 
-  //     })
-
-
-  //     renderer.setSize( container.clientWidth, container.clientHeight );
-  //     container.appendChild(renderer.domElement)
-  //     renderer.setPixelRatio(window.devicePixelRatio)
-
-  //     const loader = new GLTFLoader()
-  //     loader.load(
-  //       '/src/assets/3d/test.glb',
-  //       gltf => {
-  //         const obj = gltf.scene 
-  //         obj.name = 'birthday cake'
-  //         obj.position.y = 0
-  //         obj.position.x = 0
-  //         obj.receiveShadow = false
-  //         obj.castShadow = false
-  //         scene.add(obj)
-  //         // obj.traverse(function (child) {
-  //         //   if(child.isMesh)
-  //         // })
-  //       },
-  //       undefined
-  //     )
-
-  //     // const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-  //     // const material = new THREE.MeshStandardMaterial({ color: 'lime'});
-  //     // const cube = new THREE.Mesh( geometry, material );
-  //     // scene.add( cube );
-
-  //     const ambientLight = new AmbientLight(0xcccccc, 1)
-  //     // const ambientLight = new AmbientLight()
-  //     scene.add(ambientLight)
-  //     const pointLight = new PointLight()
-  //     pointLight.position.set(10, 10, 10)
-  //     scene.add(pointLight)
-
-  //     renderer.toneMapping = ACESFilmicToneMapping
-  //     renderer.outputEncoding = sRGBEncoding
-
-  //     camera.position.z = 5;
-  //     function animate () {
-  //       requestAnimationFrame(animate)
-  //       // model.rotation.y += 0.01 //eslint-disable-line
-  //       // cube.rotation.x += 0.01;
-  //       // cube.rotation.y += 0.01;
-  //       renderer.render(scene, camera)
-  //     }
-  //     animate()
-  //     return () => {
-  //       if (container)
-  //         container.removeChild(renderer.domElement)
-  //       // renderer.forceContextLoss()
-  //       renderer.dispose()
-  //       // cube.geometry.dispose()
-  //       // cube.material.dispose()
-  //     }
-  //   }
-  // }, [])
 
   return (
     <Page className="min-h-screen flex items-center justify-center lg:h-screen overflow-x-hidden">
