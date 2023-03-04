@@ -111,10 +111,16 @@ export const Container = styled.div`
 `
 
 export const MessageList = styled.div`
-  width: 500px;
+  width: 100%;
+  min-width: 340px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+
+  @media (min-width: 1024px) {
+    width: 500px;
+    min-width: none;
+  }
 `
 
 export const Frame = styled.div`

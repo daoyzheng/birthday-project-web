@@ -6,9 +6,10 @@ import { MessageList } from "./home.styled"
 
 interface Props {
   className?: string
+  isMinimizable?: boolean
 }
 
-const Messages = ({ className }: Props) => {
+const Messages = ({ className, isMinimizable }: Props) => {
   const [messages, setMessages] = useState<Message[]>([])
   const [messageToShow, setMessageToShow] = useState<Message|null>(null)
   const [messagesLeft, setMessagesLeft] = useState<Message[]>([])
@@ -67,9 +68,11 @@ const Messages = ({ className }: Props) => {
   useEffect(() => {
     clearInterval(interval)
     if (messages.length > 0) {
-      setTimeout(() => {
-        rotateMessage(9000)
-      }, 500)
+      if (!messageToShow) {
+        setTimeout(() => {
+          rotateMessage(9000)
+        }, 500)
+      }
       interval = setInterval(() => {
         rotateMessage(9500)
       }, 10000)
@@ -123,7 +126,7 @@ const Messages = ({ className }: Props) => {
             >
               <MessageList 
                 id="message-list"
-                className="h-fit hover:bg-white/20 hover:backdrop-blur-md hover:shadow-md hover:rounded-md p-2" 
+                className="hover:bg-white/20 hover:backdrop-blur-md hover:shadow-md hover:rounded-md p-2" 
                 onMouseLeave={handleMouseLeave} 
                 onMouseEnter={handleMouseOver}
               >
@@ -141,7 +144,7 @@ const Messages = ({ className }: Props) => {
                         duration: 0.3, 
                       }}
                     >
-                      <div className="bg-white/20 backdrop-blur-md shadow-sm w-full my-3 p-4 rounded-md">
+                      <div className="bg-white/20 backdrop-blur-md shadow-sm w-full my-3 p-4 rounded-md overflow-y-auto max-h-32 lg:overflow-y-none lg:max-h-none">
                         <div className="">{messageToShow.from}:</div>
                         <div className="ml-12 my-2" dangerouslySetInnerHTML={{__html: messageToShow.body}}></div>
                         <div className="flex items-center gap-x-1 justify-end mr-6">

@@ -36,32 +36,30 @@ const Home = () => {
   }, [])
   return !isBirthday ? 
     (
-      <div className="min-h-screen flex justify-center py-20">
+      <div className="min-h-screen flex lg:items-stretch items-center lg:justify-center flex-col lg:flex-row lg:py-20 pt-10">
         <Frame>
           <Canvas>
             <Meteor/>
             <Star/>
           </Canvas>
         </Frame>
-        <div className="flex justify-center">
-          <Container 
-            className="bg-white/20 lg:w-3/5 w-full mx-5 shadow-xl rounded-lg backdrop-blur-sm z-10 max-h-80vh overflow-auto scroll-smooth relative lg:-left-44"
-          >
-            <div className="max-w-screen-2xl w-full">
-              <Title
-                fontSize="40px"
-                fontSizeLg="60px"
-                fontSizeXl="90px"
-                className="text-center rounded-md mt-8 text-white/80"
-              >Happy Birthday Langlang</Title>
-            </div>
-            <BirthdayCake/>
-          </Container>
-          {
-            windowSize.width >= 1024 &&
-            <Messages className="absolute bottom-0 right-0 z-10 lg:mr-6"/>
-          }
-        </div>
+        <Container 
+          className="lg:w-3/5 lg:mx-5 z-10 max-h-80vh bg-white/20 shadow-xl w-6/7 rounded-lg backdrop-blur-sm overflow-auto scroll-smooth relative lg:-left-44"
+        >
+          <div className="max-w-screen-2xl w-full">
+            <Title
+              fontSize="40px"
+              fontSizeLg="60px"
+              fontSizeXl="90px"
+              className="text-center rounded-md mt-8 text-white/80"
+            >Happy Birthday Langlang</Title>
+          </div>
+          <BirthdayCake/>
+        </Container>
+        {
+          windowSize.width >= 1024 &&
+          <Messages className="absolute bottom-0 right-0 z-10 lg:mr-6"/>
+        }
         {
           windowSize.width < 1024 &&
           <Messages/>
