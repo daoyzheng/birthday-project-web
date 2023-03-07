@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from "react"
 import { MusicPlayerWrapper } from "./home.styled"
 import song1 from '/src/assets/songs/your-lie-in-april.mp3'
 import song2 from '/src/assets/songs/Your-name.mp3'
+import song3 from '/src/assets/songs/moonlight-shadow.mp3'
+import song4 from '/src/assets/songs/above-the-treetops.mp3'
 
 interface Song {
-  id: number,
   name: string
   src: string
 }
@@ -12,14 +13,20 @@ interface Song {
 const MusicPlayer = () => {
   const playlist : Song[] = [
     {
-      id: 0,
       name: 'Your lie in april',
       src: song1
     },
     {
-      id: 1,
       name: 'Your Name',
       src: song2
+    },
+    {
+      name: 'Moonlight Shadow',
+      src: song3
+    },
+    {
+      name: 'Above the treetops',
+      src: song4
     }
   ]
   const player = useRef<HTMLAudioElement>(new Audio())
