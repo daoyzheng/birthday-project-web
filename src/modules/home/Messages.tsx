@@ -114,8 +114,8 @@ const Messages = ({ className, isMinimizable }: Props) => {
         isMinimizable && isMinimized &&
         <div 
           onClick={toggleView} 
-          className="mr-5 w-fit bg-white/30 backdrop-blur-md shadow-md px-3 py-1 rounded-tr-md rounded-tl-md cursor-pointer hover:bg-white/50"
-        >Show</div>
+          className="mr-5 w-fit bg-slate-300/40 backdrop-blur-md shadow-md px-3 py-1 rounded-tr-md rounded-tl-md cursor-pointer hover:bg-slate-200/40 material-icons"
+        >keyboard_double_arrow_up</div>
       }
         {
           !isMinimized &&
@@ -129,7 +129,7 @@ const Messages = ({ className, isMinimizable }: Props) => {
             >
               <MessageList 
                 id="message-list"
-                className={`${isMinimizable && 'hover:bg-white/20 hover:backdrop-blur-md hover:shadow-md hover:rounded-md'} p-2`}
+                className={`${isMinimizable && 'hover:bg-gray-800/70 hover:backdrop-blur-sm hover:shadow-md hover:rounded-md'} p-2`}
                 onMouseLeave={handleMouseLeave} 
                 onMouseEnter={handleMouseOver}
               >
@@ -147,7 +147,7 @@ const Messages = ({ className, isMinimizable }: Props) => {
                         duration: 0.3, 
                       }}
                     >
-                      <div className="bg-white/20 backdrop-blur-md shadow-sm w-full my-3 p-4 rounded-md overflow-y-auto max-h-32 lg:overflow-y-none lg:max-h-none">
+                      <div className="bg-custom backdrop-blur-sm shadow-sm w-full my-3 p-4 rounded-md overflow-y-auto max-h-32 lg:overflow-y-none lg:max-h-none">
                         <div className="">{messageToShow.from}:</div>
                         <div className="ml-12 my-2" dangerouslySetInnerHTML={{__html: messageToShow.body}}></div>
                         <div className="flex items-center gap-x-1 justify-end mr-6">

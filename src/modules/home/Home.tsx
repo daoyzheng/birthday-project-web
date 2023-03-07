@@ -37,7 +37,7 @@ const Home = () => {
   }, [])
   return !isBirthday ? 
     (
-      <div className="min-h-screen flex lg:items-stretch items-center lg:justify-center flex-col lg:flex-row lg:py-16 pt-14">
+      <div className="min-h-screen flex lg:items-stretch items-center lg:justify-center flex-col lg:flex-row lg:pt-6 pt-14">
         <Frame>
           <Canvas>
             <Meteor/>
@@ -46,14 +46,14 @@ const Home = () => {
         </Frame>
         <MusicPlayer/>
         <Container 
-          className="lg:w-3/5 lg:mx-5 z-10 max-h-80vh lg:h-auto h-100 bg-white/20 shadow-xl w-6/7 rounded-lg backdrop-blur-sm overflow-auto scroll-smooth relative lg:-left-44"
+          className="lg:w-3/5 lg:mx-5 z-10 max-h-95vh lg:h-auto h-100 bg-custom shadow-xl w-6/7 rounded-lg backdrop-blur-sm overflow-auto scroll-smooth relative lg:-left-44"
         >
           <div className="max-w-screen-2xl w-full">
             <Title
               fontSize="40px"
               fontSizeLg="60px"
               fontSizeXl="90px"
-              className="text-center rounded-md mt-8 text-white/80"
+              className="text-center rounded-md mt-8 text-blue-300/80"
             >Happy Birthday Langlang</Title>
           </div>
           <BirthdayCake/>
