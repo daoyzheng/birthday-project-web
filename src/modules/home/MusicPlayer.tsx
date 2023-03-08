@@ -10,7 +10,11 @@ interface Song {
   src: string
 }
 
-const MusicPlayer = () => {
+interface Props {
+  onPlay?: () => void
+}
+
+const MusicPlayer = ({ onPlay }: Props) => {
   const playlist : Song[] = [
     {
       name: 'Your lie in april',
@@ -37,6 +41,7 @@ const MusicPlayer = () => {
   const [currentDuration, setCurrentDuration] = useState<number|null>(null)
   const [currentTime, setCurrentTime] = useState<number|null>(null)
   const [isShow, setIsShow] = useState<boolean>(false)
+  const [isTest, setIsTest] = useState<boolean>(false)
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight
@@ -44,13 +49,14 @@ const MusicPlayer = () => {
   useEffect(() => {
     function updateDuration() {
       setCurrentDuration(player.current.duration)
+      player.current.addEventListener('ended', playNextSong)
     }
     function updateTime() {
       setCurrentTime(player.current.currentTime)
     }
     player.current.addEventListener('loadedmetadata', updateDuration)
     player.current.addEventListener("timeupdate", updateTime)
-    player.current.addEventListener("onended", playNextSong)
+    player.current.addEventListener("ended", playNextSong)
     function handleResize() {
       setWindowSize({
         width: window.innerWidth,
@@ -61,12 +67,11 @@ const MusicPlayer = () => {
     return () => {
       player.current.removeEventListener('loadedmetadata', updateDuration)
       player.current.removeEventListener('timeupdate', updateTime)
-      player.current.removeEventListener("onended", playNextSong)
+      player.current.removeEventListener("ended", playNextSong)
       window.removeEventListener('resize', handleResize)
     }
   }, [])
   function playNextSong () {
-    console.log('here')
     const index = playlist.findIndex(song => song.src === selectedSong.src)
     if (index + 1 === playlist.length) {
       playSelectedSong(playlist[0])
@@ -95,6 +100,9 @@ const MusicPlayer = () => {
     setIsPlaying(!isPlaying)
   }
   const playSelectedSong = (song: Song) => {
+    if (isShow) setIsShow(false)
+    onPlay && onPlay()
+    setIsTest(true)
     setSelectedSong(song)
     player.current.src = song.src
     player.current.play()
@@ -114,13 +122,18 @@ const MusicPlayer = () => {
   }
   return (
     <>
+      <MusicPlayerWrapper 
+        isInit={isTest}
+        className="shadow-md z-40 bg-pink-400/40 backdrop-blur-sm" 
+        height={ isExpand ? '360px' : '65px'}
+      >
       {
         isShow &&
-        <div className="w-[300px] h-96 absolute right-0 top-12 bg-gray-800 z-50 overflow-y-auto">
+        <div className="w-[300px] rounded h-96 absolute right-0 top-12 lg:right-0 lg:top-8 bg-pink-300 z-50 overflow-y-auto backdrop-blur-md p-2 space-y-1">
           {
             playlist.map((p, index) => (
               <div 
-                className={`cursor-pointer hover:bg-slate-400/30 px-3 rounded flex justify-between w-full ${selectedSong.name === p.name ? 'bg-slate-400/30' : 'bg-none'}`}
+                className={`cursor-pointer hover:bg-red-400/40 px-3 rounded flex justify-between w-full ${selectedSong.name === p.name ? 'bg-red-400/40' : 'bg-none'}`}
                 key={index}
                 onClick={() => playSelectedSong(p)}
               >
@@ -137,66 +150,28 @@ const MusicPlayer = () => {
           }
         </div>
       }
-      <MusicPlayerWrapper className="shadow-md z-40" height={ isExpand ? '360px' : '95px'}>
-        <div className="flex items-center justify-center gap-x-3 lg:h-14 h-12 w-full bg-gray-800/70 backdrop-blur-sm shadow-md relative">
-          {
-            windowSize.width >= 1024 &&
-            <div className="absolute left-3 top-4 cursor-pointer" onClick={toggleExpand}>
-              {
-                isExpand 
-                ? <i className="material-icons">arrow_drop_up</i>
-                : <i className="material-icons">arrow_drop_down</i>
-              }
-            </div>
-          }
-          <i className="material-icons cursor-pointer" onClick={playPrevSong}>fast_rewind</i>
-          <div className="bg-blue-400 w-8 h-8 flex items-center justify-center rounded-full" onClick={togglePlay}>
+        <div className="flex items-center justify-center gap-x-3 lg:h-8 h-12 w-full bg-pink-800/80 backdrop-blur-sm shadow-md relative">
+          <i className="material-icons cursor-pointer text-sm" onClick={playPrevSong}>fast_rewind</i>
+          <div className="bg-red-400/70 w-6 h-6 flex items-center justify-center rounded-full" onClick={togglePlay}>
             {
               isPlaying 
-              ? <i className="material-icons cursor-pointer">pause</i>
-              : <i className="material-icons cursor-pointer">play_arrow</i>
+              ? <i className="material-icons cursor-pointer text-sm">pause</i>
+              : <i className="material-icons cursor-pointer text-sm">play_arrow</i>
             }
           </div>
-          <i className="material-icons cursor-pointer" onClick={playNextSong}>fast_forward</i>
-          {
-            windowSize.width < 1024 &&
-            <div className="absolute right-3 top-2 cursor-pointer" onClick={toggleDialog}>
-              <i className="material-icons">menu</i>
-            </div>
-          }
+          <i className="material-icons cursor-pointer text-sm" onClick={playNextSong}>fast_forward</i>
+          <div className="absolute right-3 top-2 cursor-pointer lg:top-1" onClick={toggleDialog}>
+            <i className="material-icons text-md">menu</i>
+          </div>
         </div>
         {
-          windowSize.width >= 1024 &&
-          (
-          isExpand
-          ? <div className="p-2 space-y-1">
-            {
-              playlist.map((p, index) => (
-                <div 
-                  className={`cursor-pointer hover:bg-slate-400/30 px-3 rounded flex justify-between w-full ${selectedSong.name === p.name ? 'bg-slate-400/30' : 'bg-none'}`}
-                  key={index}
-                  onClick={() => playSelectedSong(p)}
-                >
-                  <div>{p.name}</div>
-                  {
-                    selectedSong.name === p.name &&
-                    <div className="flex items-center">
-                      <div>{currentTime ? formatDuration(currentTime) : '0:00'} /</div>
-                      <div className="ml-1">{currentDuration ? formatDuration(currentDuration) : '0:00'}</div>
-                    </div>
-                  }
-                </div>
-              ))
-            }
-          </div>
-          : <div className="flex items-center w-full px-3 mt-1 justify-between">
-              <div>{ selectedSong.name }</div>
-              <div className="flex items-center">
-                <div>{currentTime ? formatDuration(currentTime) : '0:00'} /</div>
-                <div className="ml-1">{currentDuration ? formatDuration(currentDuration) : '0:00'}</div>
-              </div>
+          <div className="flex items-center w-full px-3 mt-1 justify-between">
+            <div>{ selectedSong.name }</div>
+            <div className="flex items-center">
+              <div>{currentTime ? formatDuration(currentTime) : '0:00'} /</div>
+              <div className="ml-1">{currentDuration ? formatDuration(currentDuration) : '0:00'}</div>
             </div>
-          )
+          </div>
         }
       </MusicPlayerWrapper>
     </>

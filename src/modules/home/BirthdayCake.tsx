@@ -64,7 +64,7 @@ const BirthdayCake = () => {
     }
   }, [])
   return (
-    <div className="w-full h-full flex justify-center">
+    <div className="w-full h-full flex justify-center bg-red-300">
       <div 
         id="birthday-cake" 
         className={`w-2/3 h-full ${isGrabbing ? 'cursor-grabbing' : 'cursor-grab'}`}

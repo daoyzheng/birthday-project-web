@@ -15,21 +15,23 @@ const flipBottom = keyframes`
 
 interface MusicPlayerWrapperProps {
   height: string
+  isInit: boolean
 }
 export const MusicPlayerWrapper = styled.div<MusicPlayerWrapperProps>`
   position: absolute;
   top: 0;
   width: 100%;
   height: 49px;
-  backdrop-filter: blur(2px);
-  background-color: rgba(56,66,69,0.7);
-  transition: height .3s;
-  overflow-y: auto;
+  /* backdrop-filter: blur(2px); */
+  /* background-color: rgba(56,66,69,0.7); */
+  transition: all .6s;
+  transition-delay: .2s;
   max-height: 400px;
   @media (min-width: 1024px) {
-    top: 25px;
-    right: 20px;
-    width: 500px;
+    top: ${props => props.isInit ? '0' : '100px'};
+    right: ${props => props.isInit ? '50%' : '180px'};
+    margin-right: ${props => props.isInit ? '-175px' : '0px'};
+    width: ${props => props.isInit ? '350px' : '250px'};
     height: ${props => props.height};
     border-radius: 5px;
   }
