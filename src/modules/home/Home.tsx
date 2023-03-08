@@ -11,6 +11,7 @@ import { Canvas, Container, Frame } from "./home.styled"
 import BirthdayCake from "./BirthdayCake"
 import MusicPlayer from "./MusicPlayer"
 import img1 from '/src/assets/1.png'
+import img2 from '/src/assets/2.png'
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault('America/Edmonton')
@@ -65,7 +66,8 @@ const Home = () => {
         </Frame>
         <MusicPlayer onPlay={handleOnPlay}/>
         <div className="min-h-screen h-screen flex justify-center items-center">
-          <div className="h-5/6 w-5/6 flex overflow-hidden scroll-smooth snap-x snap-mandatory mt-12 lg:mt-0">
+          <div className={`h-5/6 w-5/6 flex overflow-hidden scroll-smooth snap-x snap-mandatory 
+            lg:mt-0 ${isInitMusic ? 'mt-10' : 'mt-0'} transition-all duration-300`}>
             {
               refsArray.map((ref, index) => (
                 <div key={index} ref={ref} className="h-full w-full min-w-full snap-center snap-always">
@@ -107,8 +109,8 @@ const Home = () => {
                   }
                   {
                     index === 1 &&
-                    <div className="h-full w-full bg-contain rounded bg-no-repeat 
-                      bg-gradient-to-br from-violet-400 to-fuchsia-400 flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
+                    <div className="h-full w-full rounded bg-gradient-to-br from-violet-400 
+                      to-fuchsia-400 flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
                       <div className="lg:w-[1700px] w-[900px] lg:h-96 h-64 bg-blue-300 absolute rounded-lg rotate-45 -left-72 lg:left-0">
                       </div>
                       <Img
@@ -137,9 +139,33 @@ const Home = () => {
                   }
                   {
                     index === 2 &&
-                    <div className="bg-red-300 h-full w-full">
-                      Wish you always be vibrant and lively
-                      <div onClick={() => navigate(index)}>click me</div>
+                    <div className="h-full w-full bg-gradient-to-br from-amber-500 to-emerald-300 rounded
+                      flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
+                      <div className="lg:w-[900px] w-[400px] lg:h-[800px] h-[600px] bg-purple-600/40 absolute rounded-3xl rotate-[40deg] 
+                        -left-72 lg:left-[800px]">
+                      </div>
+                      <Img
+                        className="lg:h-[95%] h-[50%] mt-10"
+                        src={img2}
+                      />
+                      <div className="mt-10 lg:mt-40 z-10 ">
+                        <div className="lg:text-[50px] text-[16px] text-center">
+                          Hope your wishes come true and you receive more of the good things in life.
+                        </div>
+                        <div className="lg:text-[50px] text-[16px] text-center">
+                          希望你心想事成  收获更多的美好
+                        </div>
+                        <div className="lg:mt-48 flex justify-end mt-12 mr-20">
+                          <div
+                            className="py-2 px-10 w-fit bg-red-400 rounded-md hover:-translate-y-1
+                              duration-300 hover:shadow-md transition-all 
+                              animate-bounce
+                              cursor-pointer
+                            "
+                            onClick={() => isInitMusic && navigate(index)}
+                          >Continue</div>
+                        </div>
+                      </div>
                     </div>
                   }
                 </div>

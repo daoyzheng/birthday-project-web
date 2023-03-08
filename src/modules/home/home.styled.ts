@@ -19,7 +19,7 @@ interface MusicPlayerWrapperProps {
 }
 export const MusicPlayerWrapper = styled.div<MusicPlayerWrapperProps>`
   position: absolute;
-  top: ${props => props.isInit ? '0' : '90px'};
+  top: ${props => props.isInit ? '0' : '70px'};
   width: ${props => props.isInit ? '100%' : '250px'};
   right: ${props => props.isInit ? '0': '40px'};
   height: 65px;
