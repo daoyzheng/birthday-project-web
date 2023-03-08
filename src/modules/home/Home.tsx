@@ -1,5 +1,5 @@
 import { RefObject, useEffect, useRef, useState } from "react"
-import { Title } from "../birthdayWish/birthdayWish.styled"
+import { Img, Title } from "../birthdayWish/birthdayWish.styled"
 import Countdown from "./Countdown"
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -10,6 +10,7 @@ import Star from "./Star"
 import { Canvas, Container, Frame } from "./home.styled"
 import BirthdayCake from "./BirthdayCake"
 import MusicPlayer from "./MusicPlayer"
+import img1 from '/src/assets/1.png'
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault('America/Edmonton')
@@ -64,32 +65,33 @@ const Home = () => {
         </Frame>
         <MusicPlayer onPlay={handleOnPlay}/>
         <div className="min-h-screen h-screen flex justify-center items-center">
-          <div className="h-5/6 w-5/6 flex overflow-hidden scroll-smooth snap-x snap-mandatory">
+          <div className="h-5/6 w-5/6 flex overflow-hidden scroll-smooth snap-x snap-mandatory mt-12 lg:mt-0">
             {
               refsArray.map((ref, index) => (
                 <div key={index} ref={ref} className="h-full w-full min-w-full snap-center snap-always">
                   {
                     index === 0 && 
                     <div className="w-full h-full backdrop-blur-sm bg-birthday bg-cover bg-center bg-no-repeat shadow-md rounded-lg">
-                      <div className="pt-32 h-fit ml-[500px]">
+                      <div className="pt-32 h-fit lg:ml-[500px]">
                         <Title
-                          fontSize="40px"
+                          fontSize="50px"
                           fontSizeLg="60px"
                           fontSizeXl="120px"
                           className="text-center rounded-md text-rose-700/30"
                         >Happy Birthday</Title>
                         <Title
-                          fontSize="40px"
+                          fontSize="50px"
                           fontSizeLg="60px"
                           fontSizeXl="90px"
                           className="text-center rounded-md text-rose-700/30"
                         >Langlang</Title>
                       </div>
-                      <div className="flex items-end justify-end h-32 mr-20 mt-24">
+                      <div className="flex lg:items-end lg:justify-end h-32 lg:mr-20 lg:mt-40 mt-20 items-center justify-center">
                         <div className="flex flex-col justify-center items-center">
                           <div
-                            className={`py-2 px-6 w-fit bg-red-400 rounded-md hover:-translate-y-1 
-                              duration-300 cursor-pointer hover:shadow-md transition-all 
+                            className={`py-2 px-10 w-fit bg-red-400 rounded-md hover:-translate-y-1 
+                              duration-300 hover:shadow-md transition-all 
+                              animate-bounce
                               ${isInitMusic ? 'cursor-pointer' : 'cursor-not-allowed'}`}
                             onClick={() => isInitMusic && navigate(index)}
                             onMouseEnter={() => !isInitMusic && setIsEnter(true)}
@@ -97,27 +99,46 @@ const Home = () => {
                           >Start</div>
                           <div 
                             className={`${isEnter ? 'opacity-100' : 'opacity-0'} 
-                            transition-opacity duration-300 mt-3 text-lg`}
-                          >Some music for setting the mood?</div>
+                            transition-opacity duration-500 mt-3 text-lg`}
+                          >Some music to set the mood?</div>
                         </div>
                       </div>
-                      {
-                        <div className="flex justify-end mr-20">
-                        </div>
-                      }
                     </div>
                   }
                   {
                     index === 1 &&
-                    <div className="bg-red-300 h-full w-full">
-                      hello2
-                      <div onClick={() => navigate(index)}>click me</div>
+                    <div className="h-full w-full bg-contain rounded bg-no-repeat 
+                      bg-gradient-to-br from-violet-400 to-fuchsia-400 flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
+                      <div className="lg:w-[1700px] w-[900px] lg:h-96 h-64 bg-blue-300 absolute rounded-lg rotate-45 -left-72 lg:left-0">
+                      </div>
+                      <Img
+                        className="lg:h-[75%] h-[50%] mt-10"
+                        src={img1}
+                      />
+                      <div className="mt-10 lg:mt-40 z-10">
+                        <div className="lg:text-[50px] text-[18px]">
+                          Wish you always vibrant and lively
+                        </div>
+                        <div className="lg:text-[50px] text-[18px]">
+                          希望你永远朝气蓬勃 快快乐乐
+                        </div>
+                        <div className="lg:mt-52 flex justify-end mt-12">
+                          <div
+                            className="py-2 px-10 w-fit bg-red-400 rounded-md hover:-translate-y-1
+                              duration-300 hover:shadow-md transition-all 
+                              animate-bounce
+                              cursor-pointer
+                            "
+                            onClick={() => isInitMusic && navigate(index)}
+                          >Continue</div>
+                        </div>
+                      </div>
                     </div>
                   }
                   {
                     index === 2 &&
                     <div className="bg-red-300 h-full w-full">
-                      hello3
+                      Wish you always be vibrant and lively
                       <div onClick={() => navigate(index)}>click me</div>
                     </div>
                   }

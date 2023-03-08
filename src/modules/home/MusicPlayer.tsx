@@ -150,17 +150,17 @@ const MusicPlayer = ({ onPlay }: Props) => {
           }
         </div>
       }
-        <div className="flex items-center justify-center gap-x-3 lg:h-8 h-12 w-full bg-pink-800/80 backdrop-blur-sm shadow-md relative">
+        <div className="flex items-center justify-center gap-x-3 h-8 w-full bg-pink-800/80 backdrop-blur-sm shadow-md relative">
           <i className="material-icons cursor-pointer text-sm" onClick={playPrevSong}>fast_rewind</i>
-          <div className="bg-red-400/70 w-6 h-6 flex items-center justify-center rounded-full" onClick={togglePlay}>
+          <div className="bg-red-400/70 w-6 h-6 flex items-center justify-center rounded-full cursor-pointer" onClick={togglePlay}>
             {
               isPlaying 
-              ? <i className="material-icons cursor-pointer text-sm">pause</i>
-              : <i className="material-icons cursor-pointer text-sm">play_arrow</i>
+              ? <i className="material-icons text-sm">pause</i>
+              : <i className="material-icons text-sm">play_arrow</i>
             }
           </div>
           <i className="material-icons cursor-pointer text-sm" onClick={playNextSong}>fast_forward</i>
-          <div className="absolute right-3 top-2 cursor-pointer lg:top-1" onClick={toggleDialog}>
+          <div className="absolute right-3 top-1 cursor-pointer" onClick={toggleDialog}>
             <i className="material-icons text-md">menu</i>
           </div>
         </div>

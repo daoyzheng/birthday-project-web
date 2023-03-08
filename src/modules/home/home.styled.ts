@@ -19,9 +19,10 @@ interface MusicPlayerWrapperProps {
 }
 export const MusicPlayerWrapper = styled.div<MusicPlayerWrapperProps>`
   position: absolute;
-  top: 0;
-  width: 100%;
-  height: 49px;
+  top: ${props => props.isInit ? '0' : '90px'};
+  width: ${props => props.isInit ? '100%' : '250px'};
+  right: ${props => props.isInit ? '0': '40px'};
+  height: 65px;
   /* backdrop-filter: blur(2px); */
   /* background-color: rgba(56,66,69,0.7); */
   transition: all .6s;
@@ -167,7 +168,8 @@ export const Canvas = styled.div`
   height: 100%;
   z-index: -1;
   overflow: hidden;
-  background-image: url(/src/assets/home-background.jpg);
+  /* background-image: url(/src/assets/home-background.jpg); */
+  background-color: rgba(30, 30, 30);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
