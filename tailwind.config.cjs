@@ -7,8 +7,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'birthday': "url('/src/assets/bg-birthday.jpg')",
-        'birthday1': "url('/src/assets/bg-birthday1.jpg')"
+        'birthday': "url('/src/assets/bg-birthday.jpg')"
       },
       backgroundColor: {
         'custom': 'rgba(56,66,69,0.7)'

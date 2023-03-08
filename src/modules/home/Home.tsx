@@ -12,11 +12,14 @@ import BirthdayCake from "./BirthdayCake"
 import MusicPlayer from "./MusicPlayer"
 import img1 from '/src/assets/1.png'
 import img2 from '/src/assets/2.png'
+import img5 from '/src/assets/5.png'
+import img6 from '/src/assets/6.png'
+import img7 from '/src/assets/7.png'
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault('America/Edmonton')
 
-const SLIDES_COUNT = 5
+const SLIDES_COUNT = 6
 
 const Home = () => {
   const [isBirthday, setIsBirthday] = useState<boolean>(false)
@@ -65,7 +68,7 @@ const Home = () => {
           </Canvas>
         </Frame>
         <MusicPlayer onPlay={handleOnPlay}/>
-        <div className="min-h-screen h-screen flex justify-center items-center">
+        <div className="min-h-screen h-screen flex justify-center items-center relative">
           <div className={`h-5/6 w-5/6 flex overflow-hidden scroll-smooth snap-x snap-mandatory 
             lg:mt-0 ${isInitMusic ? 'mt-10' : 'mt-0'} transition-all duration-300`}>
             {
@@ -114,15 +117,15 @@ const Home = () => {
                       <div className="lg:w-[1700px] w-[900px] lg:h-96 h-64 bg-blue-300 absolute rounded-lg rotate-45 -left-72 lg:left-0">
                       </div>
                       <Img
-                        className="lg:h-[75%] h-[50%] mt-10"
-                        src={img1}
+                        className="lg:h-[95%] h-[50%] mt-10"
+                        src={img6}
                       />
-                      <div className="mt-10 lg:mt-40 z-10">
+                      <div className="mt-10 lg:mt-40 z-10 lg:mr-10">
                         <div className="lg:text-[50px] text-[18px]">
-                          Wish you always vibrant and lively
+                          Wish you always vibrant and lively.
                         </div>
                         <div className="lg:text-[50px] text-[18px]">
-                          希望你永远朝气蓬勃 快快乐乐
+                          希望阳光的你永远朝气蓬勃 快快乐乐
                         </div>
                         <div className="lg:mt-52 flex justify-end mt-12">
                           <div
@@ -145,15 +148,15 @@ const Home = () => {
                         -left-72 lg:left-[800px]">
                       </div>
                       <Img
-                        className="lg:h-[95%] h-[50%] mt-10"
-                        src={img2}
+                        className="lg:h-[95%] h-[60%] mt-0 lg:mt-10"
+                        src={img7}
                       />
                       <div className="mt-10 lg:mt-40 z-10 ">
                         <div className="lg:text-[50px] text-[16px] text-center">
                           Hope your wishes come true and you receive more of the good things in life.
                         </div>
                         <div className="lg:text-[50px] text-[16px] text-center">
-                          希望你心想事成  收获更多的美好
+                          希望善良的你心想事成  收获更多的美好
                         </div>
                         <div className="lg:mt-48 flex justify-end mt-12 mr-20">
                           <div
@@ -168,10 +171,70 @@ const Home = () => {
                       </div>
                     </div>
                   }
+                  {
+                    index === 3 &&
+                    <div className="h-full w-full bg-gradient-to-br from-rose-400 to-red-200 rounded
+                      flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
+                      <div className="lg:w-[800px] w-[400px] lg:h-[800px] h-[600px] bg-purple-600/30 absolute rounded-3xl rotate-[80deg] 
+                        -left-72 lg:left-[900px]">
+                      </div>
+                      <div className="mt-10 lg:mt-40 z-10">
+                        <div className="lg:text-[50px] text-[16px] text-center">
+                          Hope you will always be healthy and confident.
+                        </div>
+                        <div className="lg:text-[50px] text-[16px] text-center">
+                          希望可爱的你永远健康自信
+                        </div>
+                        <div className="lg:mt-48 flex justify-end mt-12 mr-3 lg:mr-0">
+                          <div
+                            className="py-2 px-10 w-fit bg-red-400 rounded-md hover:-translate-y-1
+                              duration-300 hover:shadow-md transition-all 
+                              animate-bounce
+                              cursor-pointer
+                            "
+                            onClick={() => isInitMusic && navigate(index)}
+                          >Continue</div>
+                        </div>
+                      </div>
+                      <Img
+                        className="lg:h-[100%] h-[70%] lg:mt-10 lg:ml-10 mt-0"
+                        src={img5}
+                      />
+                    </div>
+                  }
+                  {
+                    index === 4 && 
+                    <div className="h-full w-full bg-gradient-to-br from-amber-500 to-emerald-300 rounded
+                      flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
+                      <div>
+                        <div className="min-w-[1200px] bg-red-300 min-h-[500px]">Video</div>
+                        <div className="lg:mt-10 flex justify-end mt-12">
+                          <div
+                            className="py-2 px-10 w-fit bg-red-400 rounded-md hover:-translate-y-1
+                              duration-300 hover:shadow-md transition-all 
+                              animate-bounce
+                              cursor-pointer
+                            "
+                            onClick={() => isInitMusic && navigate(index)}
+                          >Continue</div>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  {
+                    index === 5 &&
+                    <div className="h-full w-full bg-gradient-to-br from-amber-500 to-emerald-300 rounded
+                      flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
+                      <div>
+                        <div className="min-w-[1200px] bg-red-300 min-h-[500px]">Messages</div>
+                      </div>
+                    </div>
+                  }
                 </div>
               ))
             }
           </div>
+          {/* <div className="bg-red-400 w-96 h-10 z-20 absolute bottom-0">NAV</div> */}
         </div>
       </div>
       // <div className="min-h-screen flex lg:items-stretch items-center lg:justify-center flex-col lg:flex-row lg:pt-6 pt-14">
