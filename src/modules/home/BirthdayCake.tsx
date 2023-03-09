@@ -64,10 +64,10 @@ const BirthdayCake = () => {
     }
   }, [])
   return (
-    <div className="w-full h-full flex justify-center bg-red-300">
+    <div className="lg:w-1/3 w-full h-5/6 flex justify-center">
       <div 
         id="birthday-cake" 
-        className={`w-2/3 h-full ${isGrabbing ? 'cursor-grabbing' : 'cursor-grab'}`}
+        className={`w-full h-full ${isGrabbing ? 'cursor-grabbing' : 'cursor-grab'}`}
         onMouseDown={() => setIsGrabbing(true)}
         onMouseUp={() => setIsGrabbing(false)}
       />

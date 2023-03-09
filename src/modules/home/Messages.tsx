@@ -7,12 +7,11 @@ import minimize from '/src/assets/minimize.svg'
 
 interface Props {
   className?: string
-  isMinimizable?: boolean
 }
 
-const Messages = ({ className, isMinimizable }: Props) => {
+const Messages = ({ className }: Props) => {
   const [messages, setMessages] = useState<Message[]>([])
-  const [messageToShow, setMessageToShow] = useState<Message|null>(null)
+  const [messagesToShow, setMessagesToShow] = useState<Message[]>([])
   const [messagesLeft, setMessagesLeft] = useState<Message[]>([])
   const [isMinimized, setMinimize] = useState<boolean>(false)
   async function fetchMessages () {
@@ -42,12 +41,16 @@ const Messages = ({ className, isMinimizable }: Props) => {
   }
   const swapMessage = useCallback(
     (msg: Message, timeOutTime: number) => {
-      setMessageToShow(msg)
+      setMessagesToShow(messages => [...messages, msg])
       setTimeout(() => {
-        setMessageToShow(null)
+        setMessagesToShow(current => {
+          const n = [...current]
+          n.shift()
+          return n
+        })
       }, timeOutTime)
     },
-    [setMessageToShow]
+    [setMessagesToShow]
   )
 
   function rotateMessage (timeOutTime: number) {
@@ -68,100 +71,51 @@ const Messages = ({ className, isMinimizable }: Props) => {
   useEffect(() => {
     clearInterval(interval)
     if (messages.length > 0) {
-      if (!messageToShow) {
-        setTimeout(() => {
-          rotateMessage(9000)
-        }, 500)
-      }
       interval = setInterval(() => {
-        rotateMessage(9500)
-      }, 10000)
+        rotateMessage(16000)
+      }, 5000)
     }
     return () => clearInterval(interval)
   }, [messages, messagesLeft])
 
-  const toggleView = () => {
-    if (!isMinimizable) return
-    setMinimize(!isMinimized)
-  }
-
-  const handleMouseLeave = () => {
-    if (!isMinimizable) return
-    const messageListEl = document.getElementById('message-list')
-    if (!messageListEl) return
-    const divs = messageListEl.querySelectorAll('.minimize')
-    for (let i = 0; i<divs.length; i++) {
-      divs[i].removeEventListener('click', toggleView)
-      divs[i].remove()
-    }
-  }
-  const handleMouseOver = () => {
-    if (!isMinimizable) return
-    const messageListEl = document.getElementById('message-list')
-    if (!messageListEl) return
-    const firstChild = messageListEl.firstChild as HTMLDivElement
-    if (firstChild)
-      if (firstChild.classList.contains('minimize')) return
-    const div = document.createElement('div')
-    div.classList.add('mt-3', 'cursor-pointer', 'w-fit', 'ml-2', 'minimize', 'border','px-2', 'border-white/30', 'rounded-md', 'hover:border-white/40')
-    div.textContent = '_'
-    messageListEl.insertBefore(div, messageListEl.firstChild)
-    div.addEventListener('click', toggleView)
-  }
   return (
     <div className={className}>
-      {
-        isMinimizable && isMinimized &&
-        <div 
-          onClick={toggleView} 
-          className="mr-5 w-fit bg-slate-300/40 backdrop-blur-md shadow-md px-3 py-1 rounded-tr-md rounded-tl-md cursor-pointer hover:bg-slate-200/40 material-icons"
-        >keyboard_double_arrow_up</div>
-      }
+      <MessageList 
+        id="message-list"
+        className="p-5 flex flex-col lg:p-0"
+      >
         {
-          !isMinimized &&
           <AnimatePresence>
-            <motion.div 
-              exit={{ 
-                opacity: isMinimized ? 0 : 1,
-                scale: isMinimized ? 0 : 1
-              }} 
-              transition={{ duration: 2 }}
-            >
-              <MessageList 
-                id="message-list"
-                className={`${isMinimizable && 'hover:bg-gray-800/70 hover:backdrop-blur-sm hover:shadow-md hover:rounded-md'} p-2`}
-                onMouseLeave={handleMouseLeave} 
-                onMouseEnter={handleMouseOver}
-              >
-                {
-                  messageToShow &&
-                  <AnimatePresence>
-                    <motion.div 
-                      layout
-                      exit={{ opacity: 0, scale: .8 }} 
-                      key={messageToShow.id} 
-                      initial={{ opacity: 0, scale: .8}} 
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ 
-                        ease: "easeIn", 
-                        duration: 0.3, 
-                      }}
-                    >
-                      <div className="bg-custom backdrop-blur-sm shadow-sm w-full my-3 p-4 rounded-md overflow-y-auto max-h-32 lg:overflow-y-none lg:max-h-none">
-                        <div className="">{messageToShow.from}:</div>
-                        <div className="ml-12 my-2" dangerouslySetInnerHTML={{__html: messageToShow.body}}></div>
-                        <div className="flex items-center gap-x-1 justify-end mr-6">
-                          <div className="">{messageToShow.city},</div>
-                          <div className="">{messageToShow.country}</div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-                }
-              </MessageList>
-            </motion.div>
+          {
+            messagesToShow.map((message, index) => {
+              return (
+                index < 4 &&
+                <motion.div 
+                  layout
+                  exit={{ translateX: 200 }} 
+                  key={message.id} 
+                  initial={{ translateX: 200 }} 
+                  animate={{ translateX: 0 }}
+                  transition={{ 
+                    ease: "easeIn", 
+                    duration: 0.6, 
+                  }}
+                >
+                  <div className="bg-custom backdrop-blur-sm shadow-sm w-full my-3 p-4 rounded-md">
+                    <div className="">{message.from}:</div>
+                    <div className="ml-12 my-2" dangerouslySetInnerHTML={{__html: message.body}}></div>
+                    <div className="flex items-center gap-x-1 justify-end mr-6">
+                      <div className="">{message.city},</div>
+                      <div className="">{message.country}</div>
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })
+          }
           </AnimatePresence>
         }
+      </MessageList>
     </div>
   )
 }

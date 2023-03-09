@@ -7,11 +7,9 @@ import timezone from 'dayjs/plugin/timezone'
 import Messages from "./Messages"
 import Meteor from "./Meteor"
 import Star from "./Star"
-import { Canvas, Container, Frame } from "./home.styled"
+import { Canvas, Container, Frame, MessageList } from "./home.styled"
 import BirthdayCake from "./BirthdayCake"
 import MusicPlayer from "./MusicPlayer"
-import img1 from '/src/assets/1.png'
-import img2 from '/src/assets/2.png'
 import img5 from '/src/assets/5.png'
 import img6 from '/src/assets/6.png'
 import img7 from '/src/assets/7.png'
@@ -223,10 +221,11 @@ const Home = () => {
                   }
                   {
                     index === 5 &&
-                    <div className="h-full w-full bg-gradient-to-br from-amber-500 to-emerald-300 rounded
+                    <div className="h-full w-full bg-transparent rounded
                       flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
-                      <div>
-                        <div className="min-w-[1200px] bg-red-300 min-h-[500px]">Messages</div>
+                      <div className="w-full h-full flex items-center lg:justify-around flex-col lg:flex-row overflow-y-auto overflow-x-hidden">
+                        <BirthdayCake/>
+                        <Messages/>
                       </div>
                     </div>
                   }
@@ -235,41 +234,16 @@ const Home = () => {
             }
           </div>
           {/* <div className="bg-red-400 w-96 h-10 z-20 absolute bottom-0">NAV</div> */}
+          <div className="absolute lg:bottom-5 bottom-2 text-[12px] text-blue-200 flex items-center space-x-1">
+            <div>Designed and built by</div>
+            <a 
+              target="_blank"
+              href="https://www.daozheng.me" 
+              className="underline text-blue-200 hover:text-blue-300"
+            >Dao Yuan Zheng</a>
+          </div>
         </div>
       </div>
-      // <div className="min-h-screen flex lg:items-stretch items-center lg:justify-center flex-col lg:flex-row lg:pt-6 pt-14">
-      //   <Frame>
-      //     <Canvas>
-      //       <Meteor/>
-      //       <Star/>
-      //     </Canvas>
-      //   </Frame>
-      //   <MusicPlayer/>
-      //   <BirthdayCake/>
-      //   <Container 
-      //     className="lg:w-3/5 lg:mx-5 z-10 max-h-95vh lg:h-auto h-100 bg-custom/50 shadow-xl w-6/7 rounded-lg backdrop-blur-sm overflow-auto scroll-smooth relative lg:-left-44"
-      //   >
-      //     <div className="max-w-screen-2xl w-full">
-      //       <Title
-      //         fontSize="40px"
-      //         fontSizeLg="60px"
-      //         fontSizeXl="90px"
-      //         className="text-center rounded-md mt-8 text-rose-300/80"
-      //       >Happy Birthday Langlang</Title>
-      //     </div>
-      //   </Container>
-      //   {
-      //     windowSize.width >= 1024 &&
-      //     <Messages 
-      //       className="absolute bottom-0 right-0 z-10 lg:mr-6"
-      //       isMinimizable
-      //     />
-      //   }
-      //   {
-      //     windowSize.width < 1024 &&
-      //     <Messages/>
-      //   }
-      // </div>
     ) :
     (
       <Countdown/>
