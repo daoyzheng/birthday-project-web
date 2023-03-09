@@ -25,6 +25,7 @@ const Home = () => {
   const radioRefsArray: RefObject<HTMLInputElement>[] = []
   const [isInitMusic, setIsInitMusic] = useState<boolean>(false)
   const [isEnter, setIsEnter] = useState<boolean>(false)
+  const [showNav, setShowNav] = useState<boolean>(false)
 
   for (let i=0; i<SLIDES_COUNT; i++) {
     radioRefsArray[i] = useRef<HTMLInputElement>(null)
@@ -55,12 +56,22 @@ const Home = () => {
 
   const navigate = (index: number) => {
     refsArray[index+1].current?.scrollIntoView()
+    if (index+1 === refsArray.length - 1) {
+      if (radioRefsArray[radioRefsArray.length - 1].current) {
+        const ref = radioRefsArray[radioRefsArray.length - 1].current as HTMLInputElement
+        ref.checked = true
+      }
+      setTimeout(() => {
+        setShowNav(true)
+      }, 1000)
+    }
   }
   const handleRadioClick = (index: number) => {
     radioRefsArray.forEach(ref => {
       if (ref.current)
         ref.current.checked = false 
     })
+    if (!showNav) return
     if (radioRefsArray[index].current) {
       const ref = radioRefsArray[index].current as HTMLInputElement
       ref.checked = true
@@ -249,13 +260,17 @@ const Home = () => {
               ))
             }
           </div>
-          <div className="w-64 h-10 z-20 absolute bottom-24 flex justify-around items-center">
+          <div className={`w-64 h-10 z-20 absolute bottom-24 flex 
+            transition-opacity
+            duration-500
+            justify-around items-center opacity-0 ${showNav ? 'opacity-100' : 'opacity-0'}`}>
             {
               radioRefsArray.map((ref, index) => (
                 <input 
                   key={index}
                   ref={ref}
-                  className="h-4 w-4 cursor-pointer"
+                  className={`h-4 w-4 duration-700
+                    -tranlate-x-10 ${showNav ? 'translate-x-0 cursor-pointer' : '-translate-x-10 cursor-default'}`}
                   type="radio"
                   onClick={() => handleRadioClick(index)}
                 />

@@ -13,7 +13,6 @@ const Messages = ({ className }: Props) => {
   const [messages, setMessages] = useState<Message[]>([])
   const [messagesToShow, setMessagesToShow] = useState<Message[]>([])
   const [messagesLeft, setMessagesLeft] = useState<Message[]>([])
-  const [isMinimized, setMinimize] = useState<boolean>(false)
   async function fetchMessages () {
     const url = `${import.meta.env.VITE_CLIENT_API}/api/messages`
     const method = 'get'
@@ -23,7 +22,7 @@ const Messages = ({ className }: Props) => {
     }
     const res = await request(config)
     const { data } = res
-    const shuffledMessags = shuffle(data)
+    const shuffledMessags = shuffle([...data])
     setMessages([...shuffledMessags])
     setMessagesLeft([...shuffledMessags])
   }
@@ -37,7 +36,7 @@ const Messages = ({ className }: Props) => {
       [messages[currentIndex], messages[randomIndex]] = [
         messages[randomIndex], messages[currentIndex]]
     }
-    return [...messages]
+    return messages
   }
   const swapMessage = useCallback(
     (msg: Message, timeOutTime: number) => {
@@ -56,7 +55,7 @@ const Messages = ({ className }: Props) => {
   function rotateMessage (timeOutTime: number) {
     const currentMessage = messagesLeft.shift()
     if (messagesLeft.length === 0) {
-      const shuffledMessags = shuffle(messages)
+      const shuffledMessags = shuffle([...messages])
       setMessagesLeft(shuffledMessags)
     } else {
       setMessagesLeft(messagesLeft)
