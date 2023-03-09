@@ -24,8 +24,8 @@ const Countdown = () => {
     setTimeZoneName(timeZoneName)
     const birthday = dayjs.tz('2023-03-11T00:00:00', 'America/Edmonton').utc()
     const initialize = () => {
-      const now = dayjs().tz('America/Edmonton').utc();
-      const distance = birthday.diff(now);
+      const now = dayjs().tz('America/Edmonton').utc()
+      const distance = birthday.diff(now)
       if (now <= birthday) {
         const days = Math.floor(distance / (1000 * 60 * 60 * 24))
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
@@ -48,6 +48,7 @@ const Countdown = () => {
   function flipAllCards (birthday: Dayjs) {
     const now = dayjs().tz('America/Edmonton').utc();
     const distance = birthday.diff(now);
+    if (now > birthday) location.reload()
     if (now <= birthday) {
       const days = Math.floor(distance / (1000 * 60 * 60 * 24))
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
