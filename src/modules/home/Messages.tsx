@@ -92,9 +92,9 @@ const Messages = ({ className }: Props) => {
                 index < 4 &&
                 <motion.div 
                   layout
-                  exit={{ translateX: 200 }} 
+                  exit={{ translateX: 400 }} 
                   key={message.id} 
-                  initial={{ translateX: 200 }} 
+                  initial={{ translateX: 400 }} 
                   animate={{ translateX: 0 }}
                   transition={{ 
                     ease: "easeIn", 

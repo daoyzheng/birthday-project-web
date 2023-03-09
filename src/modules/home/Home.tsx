@@ -22,8 +22,13 @@ const SLIDES_COUNT = 6
 const Home = () => {
   const [isBirthday, setIsBirthday] = useState<boolean>(false)
   const refsArray :RefObject<HTMLDivElement>[] = []
+  const radioRefsArray: RefObject<HTMLInputElement>[] = []
   const [isInitMusic, setIsInitMusic] = useState<boolean>(false)
   const [isEnter, setIsEnter] = useState<boolean>(false)
+
+  for (let i=0; i<SLIDES_COUNT; i++) {
+    radioRefsArray[i] = useRef<HTMLInputElement>(null)
+  }
 
   for (let i=0; i<SLIDES_COUNT; i++) {
     refsArray[i] = useRef<HTMLDivElement>(null)
@@ -50,6 +55,17 @@ const Home = () => {
 
   const navigate = (index: number) => {
     refsArray[index+1].current?.scrollIntoView()
+  }
+  const handleRadioClick = (index: number) => {
+    radioRefsArray.forEach(ref => {
+      if (ref.current)
+        ref.current.checked = false 
+    })
+    if (radioRefsArray[index].current) {
+      const ref = radioRefsArray[index].current as HTMLInputElement
+      ref.checked = true
+      navigate(index-1)
+    }
   }
   const handleOnPlay = () => {
     if (!isInitMusic) {
@@ -233,7 +249,19 @@ const Home = () => {
               ))
             }
           </div>
-          {/* <div className="bg-red-400 w-96 h-10 z-20 absolute bottom-0">NAV</div> */}
+          <div className="w-64 h-10 z-20 absolute bottom-24 flex justify-around items-center">
+            {
+              radioRefsArray.map((ref, index) => (
+                <input 
+                  key={index}
+                  ref={ref}
+                  className="h-4 w-4 cursor-pointer"
+                  type="radio"
+                  onClick={() => handleRadioClick(index)}
+                />
+              ))
+            }
+          </div>
           <div className="absolute lg:bottom-5 bottom-2 text-[12px] text-blue-200 flex items-center space-x-1">
             <div>Designed and built by</div>
             <a 
