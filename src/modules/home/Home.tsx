@@ -100,7 +100,7 @@ const Home = () => {
       setIsInitMusic(true)
     }
   }
-  return isBirthday ? 
+  return !isBirthday ? 
     (
       <>
       <div className={`bg-stone-900 min-h-screen flex items-center justify-center absolute inset-0 ${isInitializing ? 'opacity-100' : 'opacity-0 z-0'}`}>
