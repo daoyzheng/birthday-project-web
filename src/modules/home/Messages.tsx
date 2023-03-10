@@ -1,14 +1,23 @@
-import { useEffect, useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
+import { useCallback, useEffect, useState } from "react"
 import { Message } from "../../interfaces/message"
 import request from "../../utils/request"
 import { MessageList } from "./home.styled"
+import staticMessages from "../../assets/static/messages.json"
 
 interface Props {
-  show: boolean
+  className?: string
 }
-const Messages = ({ show }: Props) => {
+interface ILocation {
+  city: string
+  country: string
+}
+
+const Messages = ({ className }: Props) => {
   const [messages, setMessages] = useState<Message[]>([])
-  const [messageToShow, setMessageToShow] = useState<Message[]>([])
+  const [messagesToShow, setMessagesToShow] = useState<Message[]>([])
+  const [messagesLeft, setMessagesLeft] = useState<Message[]>([])
+  const [location, setLocation] = useState<ILocation>()
   async function fetchMessages () {
     const url = `${import.meta.env.VITE_CLIENT_API}/api/messages`
     const method = 'get'
@@ -18,55 +27,122 @@ const Messages = ({ show }: Props) => {
     }
     const res = await request(config)
     const { data } = res
-    setMessages(data)
+    const shuffledMessags = shuffle([...data])
+    setMessages([...shuffledMessags])
+    setMessagesLeft([...shuffledMessags])
   }
+  async function getLocation () {
+    const geoPluginKey = import.meta.env.VITE_GEOPLUGIN
+    const url =`https://ssl.geoplugin.net/json.gp?k=${geoPluginKey}`
+    const method = 'get'
+    const config = {
+      url,
+      method
+    }
+    const { data } = await request(config)
+    const location = {
+      city: data.geoplugin_city,
+      country: data.geoplugin_countryName
+    }
+    setLocation(location)
+  }
+
+  function shuffle (messages: Message[]) {
+    let currentIndex = messages.length, randomIndex
+
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--
+
+      [messages[currentIndex], messages[randomIndex]] = [
+        messages[randomIndex], messages[currentIndex]]
+    }
+    return messages
+  }
+  const swapMessage = useCallback(
+    (msg: Message, timeOutTime: number) => {
+      setMessagesToShow(messages => [msg, ...messages])
+      setTimeout(() => {
+        setMessagesToShow(current => {
+          const n = [...current]
+          n.pop()
+          return n
+        })
+      }, timeOutTime)
+    },
+    [setMessagesToShow]
+  )
+
+  function rotateMessage (timeOutTime: number) {
+    const currentMessage = messagesLeft.shift()
+    if (messagesLeft.length === 0) {
+      const shuffledMessags = shuffle([...messages])
+      setMessagesLeft(shuffledMessags)
+    } else {
+      setMessagesLeft(messagesLeft)
+    }
+    if (!currentMessage) return
+    swapMessage(currentMessage, timeOutTime)
+  }
+  let interval : any
   useEffect(() => {
-    fetchMessages()
+    getLocation()
   }, [])
+  useEffect(() => {
+    if (location && location.country === 'China') {
+      const shuffledMessags = shuffle([...staticMessages])
+      setMessages([...shuffledMessags])
+      setMessagesLeft([...shuffledMessags])
+    } else {
+      fetchMessages()
+    }
+  }, [location])
+  useEffect(() => {
+    clearInterval(interval)
+    if (messages.length > 0) {
+      interval = setInterval(() => {
+        rotateMessage(13700)
+      }, 5000)
+    }
+    return () => clearInterval(interval)
+  }, [messages, messagesLeft])
 
-  const toggleView = () => {
-    console.log('here')
-  }
-
-  const handleMouseLeave = () => {
-    console.log('leave')
-    const messageListEl = document.getElementById('message-list')
-    if (!messageListEl) return
-    const div = messageListEl.firstChild
-    if (div)
-      div.remove()
-  }
-  const handleMouseOver = () => {
-    const messageListEl = document.getElementById('message-list')
-    if (!messageListEl) return
-    const div = document.createElement('div')
-    div.classList.add('mt-3', 'cursor-pointer', 'w-fit', 'ml-4')
-    div.textContent = 'Min'
-    messageListEl.insertBefore(div, messageListEl.firstChild)
-    div.addEventListener('onClick', toggleView)
-  }
   return (
-    <div className="absolute bottom-0 right-0 z-10 mr-4">
+    <div className={className}>
       <MessageList 
         id="message-list"
-        className="h-fit hover:bg-white/20 hover:backdrop-blur-md hover:shadow-md hover:rounded-md p-2" 
-        onMouseLeave={handleMouseLeave} 
-        onMouseEnter={handleMouseOver}
+        className="p-5 flex flex-col lg:p-0"
       >
         {
-          messages.map((message, index) => {
-            return (
-              index < 2 &&
-              <div key={message.id} className="bg-white/20 backdrop-blur-md shadow-sm w-full my-3 p-4 rounded-md">
-                <div className="">{message.from}:</div>
-                <div className="ml-12">{message.body}</div>
-                <div className="flex items-center gap-x-1 justify-end mr-6">
-                  <div className="">{message.city},</div>
-                  <div className="">{message.country}</div>
-                </div>
-              </div>
-            )
-          })
+          <AnimatePresence>
+          {
+            messagesToShow.map((message, index) => {
+              return (
+                index < 3 &&
+                <motion.div 
+                  layout
+                  exit={{ translateX: 400 }} 
+                  key={message.id} 
+                  initial={{ translateX: 400 }} 
+                  animate={{ translateX: 0 }}
+                  transition={{ 
+                    ease: "easeIn", 
+                    duration: 0.6, 
+                  }}
+                >
+                  <div className="bg-custom backdrop-blur-sm shadow-sm w-full my-3 p-4 rounded-md">
+                    <div className="">{message.from}:</div>
+                    <div className="ml-12 my-2" dangerouslySetInnerHTML={{__html: message.body}}></div>
+                    <div className="flex items-center gap-x-1 justify-end mr-6">
+                      <div className="">{message.city},</div>
+                      <div className="">{message.country}</div>
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })
+          }
+          </AnimatePresence>
         }
       </MessageList>
     </div>

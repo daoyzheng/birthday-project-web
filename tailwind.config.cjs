@@ -6,10 +6,24 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'birthday': "url('/src/assets/bg-birthday.jpg')"
+      },
+      backgroundColor: {
+        'custom': 'rgba(56,66,69,0.7)'
+      },
+      width: {
+        '6/7': '90%'
+      },
+      height: {
+        '100': '28rem'
+      },
       maxHeight: {
         '3/4': '75%',
         '4/5': '80%',
-        '80vh': '80vh'
+        '80vh': '80vh',
+        '90vh': '90vh',
+        '95vh': '95vh',
       },
       maxWidth: {
         '5': '5rem',

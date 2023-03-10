@@ -13,6 +13,31 @@ const flipBottom = keyframes`
   }
 `
 
+interface MusicPlayerWrapperProps {
+  height: string
+  isInit: boolean
+}
+export const MusicPlayerWrapper = styled.div<MusicPlayerWrapperProps>`
+  position: absolute;
+  top: ${props => props.isInit ? '0' : '70px'};
+  width: ${props => props.isInit ? '100%' : '250px'};
+  right: ${props => props.isInit ? '0': '40px'};
+  height: 65px;
+  /* backdrop-filter: blur(2px); */
+  /* background-color: rgba(56,66,69,0.7); */
+  transition: all .6s;
+  transition-delay: .2s;
+  max-height: 400px;
+  @media (min-width: 1024px) {
+    top: ${props => props.isInit ? '0' : '100px'};
+    right: ${props => props.isInit ? '50%' : '180px'};
+    margin-right: ${props => props.isInit ? '-175px' : '0px'};
+    width: ${props => props.isInit ? '350px' : '250px'};
+    height: ${props => props.height};
+    border-radius: 5px;
+  }
+`
+
 
 export const FlipCardWrapper = styled.div`
   @media (min-width: 1024px) {
@@ -93,15 +118,15 @@ export const Container = styled.div`
     width: 0.5em;
   }
   ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(112, 112, 112, 0.5);
     border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(60, 60, 60, 0.6);
     border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.65);
+    background: rgba(34, 31, 31, 0.4);
   }
   @media (min-width: 1024px) {
     ::-webkit-scrollbar {
@@ -111,10 +136,16 @@ export const Container = styled.div`
 `
 
 export const MessageList = styled.div`
-  width: 500px;
+  width: 100%;
+  min-width: 340px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+
+  @media (min-width: 1024px) {
+    width: 500px;
+    min-width: none;
+  }
 `
 
 export const Frame = styled.div`
@@ -137,7 +168,8 @@ export const Canvas = styled.div`
   height: 100%;
   z-index: -1;
   overflow: hidden;
-  background-image: url(/src/assets/home-background.jpg);
+  /* background-image: url(/src/assets/home-background.jpg); */
+  background-color: rgba(30, 30, 30);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
