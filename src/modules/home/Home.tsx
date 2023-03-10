@@ -256,7 +256,9 @@ const Home = () => {
                     <div className="h-full w-full bg-gradient-to-br from-amber-500 to-emerald-300 rounded
                       flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
                       <div>
-                        <div className="min-w-[1200px] bg-red-300 min-h-[500px]">Video</div>
+                        <div className="min-w-[1200px] bg-red-300 min-h-[500px]">
+
+                        </div>
                         <div className="lg:mt-10 flex justify-end mt-12">
                           <div
                             className="py-2 px-10 w-fit bg-red-400 rounded-md hover:-translate-y-1
