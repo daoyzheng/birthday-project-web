@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState } from "react"
 import { Message } from "../../interfaces/message"
 import request from "../../utils/request"
 import { MessageList } from "./home.styled"
-import minimize from '/src/assets/minimize.svg'
 
 interface Props {
   className?: string
@@ -40,11 +39,11 @@ const Messages = ({ className }: Props) => {
   }
   const swapMessage = useCallback(
     (msg: Message, timeOutTime: number) => {
-      setMessagesToShow(messages => [...messages, msg])
+      setMessagesToShow(messages => [msg, ...messages])
       setTimeout(() => {
         setMessagesToShow(current => {
           const n = [...current]
-          n.shift()
+          n.pop()
           return n
         })
       }, timeOutTime)
@@ -71,7 +70,7 @@ const Messages = ({ className }: Props) => {
     clearInterval(interval)
     if (messages.length > 0) {
       interval = setInterval(() => {
-        rotateMessage(16000)
+        rotateMessage(13700)
       }, 5000)
     }
     return () => clearInterval(interval)
@@ -88,7 +87,7 @@ const Messages = ({ className }: Props) => {
           {
             messagesToShow.map((message, index) => {
               return (
-                index < 4 &&
+                index < 3 &&
                 <motion.div 
                   layout
                   exit={{ translateX: 400 }} 

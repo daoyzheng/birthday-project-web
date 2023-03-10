@@ -34,43 +34,32 @@ const MusicPlayer = ({ onPlay }: Props) => {
     }
   ]
   const player = useRef<HTMLAudioElement>(new Audio())
-  player.current.loop = true
-  const [isExpand, setIsExpand] = useState<boolean>(false)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const [selectedSong, setSelectedSong] = useState<Song>(playlist[0])
   const [currentDuration, setCurrentDuration] = useState<number|null>(null)
   const [currentTime, setCurrentTime] = useState<number|null>(null)
   const [isShow, setIsShow] = useState<boolean>(false)
   const [isTest, setIsTest] = useState<boolean>(false)
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight
-  })
   useEffect(() => {
     function updateDuration() {
       setCurrentDuration(player.current.duration)
-      player.current.addEventListener('ended', playNextSong)
     }
     function updateTime() {
       setCurrentTime(player.current.currentTime)
     }
     player.current.addEventListener('loadedmetadata', updateDuration)
-    player.current.addEventListener("timeupdate", updateTime)
-    player.current.addEventListener("ended", playNextSong)
-    function handleResize() {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
-    window.addEventListener('resize', handleResize)
+    player.current.addEventListener('timeupdate', updateTime)
     return () => {
       player.current.removeEventListener('loadedmetadata', updateDuration)
       player.current.removeEventListener('timeupdate', updateTime)
-      player.current.removeEventListener("ended", playNextSong)
-      window.removeEventListener('resize', handleResize)
     }
   }, [])
+  useEffect(() => {
+    player.current.addEventListener('ended', playNextSong)
+    return () => {
+      player.current.removeEventListener('ended', playNextSong)
+    }
+  }, [selectedSong])
   function playNextSong () {
     const index = playlist.findIndex(song => song.src === selectedSong.src)
     if (index + 1 === playlist.length) {
@@ -112,9 +101,6 @@ const MusicPlayer = ({ onPlay }: Props) => {
     setIsShow(!isShow)
   }
 
-  const toggleExpand = () => {
-    setIsExpand(!isExpand)
-  }
   function formatDuration(durationInSeconds: number) {
     const minutes = Math.floor(durationInSeconds / 60);
     const seconds = Math.floor(durationInSeconds % 60);
@@ -125,7 +111,7 @@ const MusicPlayer = ({ onPlay }: Props) => {
       <MusicPlayerWrapper 
         isInit={isTest}
         className="shadow-md z-40 bg-pink-400/40 backdrop-blur-sm" 
-        height={ isExpand ? '360px' : '65px'}
+        height="65px"
       >
       {
         isShow &&
