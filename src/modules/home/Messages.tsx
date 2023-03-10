@@ -48,14 +48,9 @@ const Messages = ({ className }: Props) => {
   }
 
   function shuffle (messages: Message[]) {
-    let currentIndex = messages.length, randomIndex
-
-    while (currentIndex != 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--
-
-      [messages[currentIndex], messages[randomIndex]] = [
-        messages[randomIndex], messages[currentIndex]]
+    for (let i = messages.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [messages[i], messages[j]] = [messages[j], messages[i]];
     }
     return messages
   }
@@ -101,8 +96,8 @@ const Messages = ({ className }: Props) => {
     clearInterval(interval)
     if (messages.length > 0) {
       interval = setInterval(() => {
-        rotateMessage(13700)
-      }, 5000)
+        rotateMessage(23000)
+      }, 8000)
     }
     return () => clearInterval(interval)
   }, [messages, messagesLeft])
