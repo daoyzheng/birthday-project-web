@@ -3,15 +3,21 @@ import { useCallback, useEffect, useState } from "react"
 import { Message } from "../../interfaces/message"
 import request from "../../utils/request"
 import { MessageList } from "./home.styled"
+import staticMessages from "../../assets/static/messages.json"
 
 interface Props {
   className?: string
+}
+interface ILocation {
+  city: string
+  country: string
 }
 
 const Messages = ({ className }: Props) => {
   const [messages, setMessages] = useState<Message[]>([])
   const [messagesToShow, setMessagesToShow] = useState<Message[]>([])
   const [messagesLeft, setMessagesLeft] = useState<Message[]>([])
+  const [location, setLocation] = useState<ILocation>()
   async function fetchMessages () {
     const url = `${import.meta.env.VITE_CLIENT_API}/api/messages`
     const method = 'get'
@@ -25,6 +31,22 @@ const Messages = ({ className }: Props) => {
     setMessages([...shuffledMessags])
     setMessagesLeft([...shuffledMessags])
   }
+  async function getLocation () {
+    const geoPluginKey = import.meta.env.VITE_GEOPLUGIN
+    const url =`https://ssl.geoplugin.net/json.gp?k=${geoPluginKey}`
+    const method = 'get'
+    const config = {
+      url,
+      method
+    }
+    const { data } = await request(config)
+    const location = {
+      city: data.geoplugin_city,
+      country: data.geoplugin_countryName
+    }
+    setLocation(location)
+  }
+
   function shuffle (messages: Message[]) {
     let currentIndex = messages.length, randomIndex
 
@@ -64,8 +86,17 @@ const Messages = ({ className }: Props) => {
   }
   let interval : any
   useEffect(() => {
-    fetchMessages()
+    getLocation()
   }, [])
+  useEffect(() => {
+    if (location && location.country === 'China') {
+      const shuffledMessags = shuffle([...staticMessages])
+      setMessages([...shuffledMessags])
+      setMessagesLeft([...shuffledMessags])
+    } else {
+      fetchMessages()
+    }
+  }, [location])
   useEffect(() => {
     clearInterval(interval)
     if (messages.length > 0) {

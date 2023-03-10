@@ -13,6 +13,7 @@ import MusicPlayer from "./MusicPlayer"
 import img5 from '/src/assets/5.png'
 import img6 from '/src/assets/6.png'
 import img7 from '/src/assets/7.png'
+import video from '/src/assets/video/birthday-project.mp4'
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault('America/Edmonton')
@@ -253,22 +254,24 @@ const Home = () => {
                   }
                   {
                     index === 4 && 
-                    <div className="h-full w-full bg-gradient-to-br from-amber-500 to-emerald-300 rounded
-                      flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
-                      <div>
-                        <div className="min-w-[1200px] bg-red-300 min-h-[500px]">
-
+                    <div className="h-full w-full bg-gradient-to-br from-stone-500/30 to-gray-600/50 rounded
+                      flex relative flex-col overflow-hidden">
+                      <div className="mt-14 flex justify-center">
+                        <div className="lg:w-[60%] w-[95%]">
+                          <video controls>
+                            <source src={video} type="video/mp4"/>
+                          </video>
                         </div>
-                        <div className="lg:mt-10 flex justify-end mt-12">
-                          <div
-                            className="py-2 px-10 w-fit bg-red-400 rounded-md hover:-translate-y-1
-                              duration-300 hover:shadow-md transition-all 
-                              animate-bounce
-                              cursor-pointer
-                            "
-                            onClick={() => isInitMusic && navigate(index)}
-                          >Continue</div>
-                        </div>
+                      </div>
+                      <div className="lg:mt-16 flex justify-end lg:mr-52 mt-52 mr-5">
+                        <div
+                          className="py-2 px-10 w-fit bg-red-400 rounded-md hover:-translate-y-1
+                            duration-300 hover:shadow-md transition-all 
+                            animate-bounce
+                            cursor-pointer
+                          "
+                          onClick={() => isInitMusic && navigate(index)}
+                        >Continue</div>
                       </div>
                     </div>
                   }
