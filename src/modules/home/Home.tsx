@@ -13,7 +13,6 @@ import MusicPlayer from "./MusicPlayer"
 import img5 from '/src/assets/5.png'
 import img6 from '/src/assets/6.png'
 import img7 from '/src/assets/7.png'
-import video from '/src/assets/video/birthday-project.mp4'
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault('America/Edmonton')
@@ -163,7 +162,7 @@ const Home = () => {
                   {
                     index === 1 &&
                     <div className="h-full w-full rounded bg-gradient-to-br from-violet-400 
-                      to-fuchsia-400 flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
+                      to-fuchsia-400 flex items-center lg:justify-around relative flex-col lg:flex-row overflow-x-hidden overflow-y-auto lg:overflow-y-hidden">
                       <div className="lg:w-[1700px] w-[900px] lg:h-96 h-64 bg-blue-300 absolute rounded-lg rotate-45 -left-72 lg:left-0">
                       </div>
                       <Img
@@ -193,7 +192,7 @@ const Home = () => {
                   {
                     index === 2 &&
                     <div className="h-full w-full bg-gradient-to-br from-amber-500 to-emerald-300 rounded
-                      flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
+                      flex items-center lg:justify-around relative flex-col lg:flex-row overflow-x-hidden overflow-y-auto lg:overflow-y-hidden">
                       <div className="lg:w-[900px] w-[400px] lg:h-[800px] h-[600px] bg-purple-600/40 absolute rounded-3xl rotate-[40deg] 
                         -left-72 lg:left-[800px]">
                       </div>
@@ -224,7 +223,7 @@ const Home = () => {
                   {
                     index === 3 &&
                     <div className="h-full w-full bg-gradient-to-br from-rose-400 to-red-200 rounded
-                      flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
+                      flex items-center lg:justify-around relative flex-col lg:flex-row overflow-x-hidden overflow-y-auto lg:overflow-y-hidden">
                       <div className="lg:w-[800px] w-[400px] lg:h-[800px] h-[600px] bg-purple-600/30 absolute rounded-3xl rotate-[80deg] 
                         -left-72 lg:left-[900px]">
                       </div>
@@ -255,11 +254,11 @@ const Home = () => {
                   {
                     index === 4 && 
                     <div className="h-full w-full bg-gradient-to-br from-stone-500/30 to-gray-600/50 rounded
-                      flex relative flex-col overflow-hidden">
+                      flex relative flex-col lg:overflow-y-hidden overflow-x-hidden overflow-y-auto">
                       <div className="mt-14 flex justify-center">
                         <div className="lg:w-[60%] w-[95%]">
                           <video controls>
-                            <source src={video} type="video/mp4"/>
+                            <source src="https://birthday-project.s3.us-west-2.amazonaws.com/birthday-project.mp4" type="video/mp4"/>
                           </video>
                         </div>
                       </div>
