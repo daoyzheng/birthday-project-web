@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react"
 import { MusicPlayerWrapper } from "./home.styled"
 import song1 from '/src/assets/songs/your-lie-in-april.mp3'
 import song2 from '/src/assets/songs/Your-name.mp3'
@@ -12,9 +12,10 @@ interface Song {
 
 interface Props {
   onPlay?: () => void
+  onLoad?: (audioRef: RefObject<HTMLAudioElement>) => void
 }
 
-const MusicPlayer = ({ onPlay }: Props) => {
+const MusicPlayer = ({ onPlay, onLoad }: Props) => {
   const playlist : Song[] = [
     {
       name: 'Your lie in april',
@@ -49,9 +50,22 @@ const MusicPlayer = ({ onPlay }: Props) => {
     }
     player.current.addEventListener('loadedmetadata', updateDuration)
     player.current.addEventListener('timeupdate', updateTime)
+    player.current.addEventListener('play', () => {
+      setIsPlaying(true)
+    })
+    player.current.addEventListener('pause', () => {
+      setIsPlaying(false)
+    })
+    onLoad && onLoad(player)
     return () => {
       player.current.removeEventListener('loadedmetadata', updateDuration)
       player.current.removeEventListener('timeupdate', updateTime)
+      player.current.removeEventListener('play', () => {
+        setIsPlaying(true)
+      })
+      player.current.removeEventListener('puase', () => {
+        setIsPlaying(false)
+      })
     }
   }, [])
   useEffect(() => {

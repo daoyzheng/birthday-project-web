@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef, useState } from "react"
+import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react"
 import { Img, Title } from "../birthdayWish/birthdayWish.styled"
 import Countdown from "./Countdown"
 import dayjs from 'dayjs'
@@ -28,6 +28,8 @@ const Home = () => {
   const [showNav, setShowNav] = useState<boolean>(false)
   const [isInitializing, setIsInitializing] = useState<boolean>(true)
   const [initText, setInitText] = useState<string>('')
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [audioRef, setAudioRef] = useState<HTMLAudioElement|null>(null)
 
   for (let i=0; i<SLIDES_COUNT; i++) {
     radioRefsArray[i] = useRef<HTMLInputElement>(null)
@@ -61,7 +63,15 @@ const Home = () => {
     }, 850)
   }, [])
 
+  const handleOnLoad = (ref: RefObject<HTMLAudioElement>) => {
+    setAudioRef(ref.current)
+  }
+
   const navigate = (index: number) => {
+    if (index === 4) {
+      videoRef.current?.pause()
+      audioRef?.play()
+    }
     refsArray[index+1].current?.scrollIntoView()
     if (index+1 === refsArray.length - 1) {
       if (radioRefsArray[radioRefsArray.length - 1].current) {
@@ -95,6 +105,9 @@ const Home = () => {
       navigate(index-1)
     }
   }
+  const handleVideoPlay = () => {
+    audioRef?.pause()
+  }
   const handleOnPlay = () => {
     if (!isInitMusic) {
       setIsInitMusic(true)
@@ -116,7 +129,7 @@ const Home = () => {
             <Star/>
           </Canvas>
         </Frame>
-        <MusicPlayer onPlay={handleOnPlay}/>
+        <MusicPlayer onPlay={handleOnPlay} onLoad={handleOnLoad}/>
         <div className="min-h-screen h-screen flex justify-center items-center relative">
           <div className={`h-5/6 w-5/6 flex overflow-hidden scroll-smooth snap-x snap-mandatory 
             lg:mt-0 ${isInitMusic ? 'mt-10' : 'mt-0'} transition-all duration-300`}>
@@ -253,11 +266,11 @@ const Home = () => {
                   }
                   {
                     index === 4 && 
-                    <div className="h-full w-full bg-gradient-to-br from-stone-500/30 to-gray-600/50 rounded
+                    <div className="h-full w-full bg-transparent rounded
                       flex relative flex-col lg:overflow-y-hidden overflow-x-hidden overflow-y-auto">
                       <div className="mt-14 flex justify-center">
                         <div className="lg:w-[60%] w-[95%]">
-                          <video controls>
+                          <video controls ref={videoRef} onPlay={handleVideoPlay}>
                             <source src="https://birthday-project.s3.us-west-2.amazonaws.com/birthday-project.mp4" type="video/mp4"/>
                           </video>
                         </div>
