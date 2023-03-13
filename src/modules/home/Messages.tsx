@@ -48,11 +48,22 @@ const Messages = ({ className }: Props) => {
   }
 
   function shuffle (messages: Message[]) {
-    for (let i = messages.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [messages[i], messages[j]] = [messages[j], messages[i]];
+    var currentIndex = messages.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = messages[currentIndex];
+      messages[currentIndex] = messages[randomIndex];
+      messages[randomIndex] = temporaryValue;
     }
-    return messages
+
+    return messages;
   }
   const swapMessage = useCallback(
     (msg: Message, timeOutTime: number) => {

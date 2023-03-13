@@ -138,7 +138,7 @@ const Home = () => {
                 <div key={index} ref={ref} className="h-full w-full min-w-full snap-center snap-always">
                   {
                     index === 0 && 
-                    <div className="w-full h-full backdrop-blur-sm bg-birthday bg-cover bg-center bg-no-repeat shadow-md rounded-lg">
+                    <div className="w-full lg:h-full h-5/6 backdrop-blur-sm bg-birthday bg-cover bg-center bg-no-repeat shadow-md rounded-lg">
                       <div className="pt-32 h-fit lg:ml-[500px]">
                         <Title
                           fontSize="50px"
@@ -174,7 +174,7 @@ const Home = () => {
                   }
                   {
                     index === 1 &&
-                    <div className="h-full w-full rounded bg-gradient-to-br from-violet-400 
+                    <div className="lg:h-full h-5/6 w-full rounded bg-gradient-to-br from-violet-400 
                       to-fuchsia-400 flex items-center lg:justify-around relative flex-col lg:flex-row overflow-x-hidden overflow-y-auto lg:overflow-y-hidden">
                       <div className="lg:w-[1700px] w-[900px] lg:h-96 h-64 bg-blue-300 absolute rounded-lg rotate-45 -left-72 lg:left-0">
                       </div>
@@ -204,7 +204,7 @@ const Home = () => {
                   }
                   {
                     index === 2 &&
-                    <div className="h-full w-full bg-gradient-to-br from-amber-500 to-emerald-300 rounded
+                    <div className="lg:h-full h-5/6 w-full bg-gradient-to-br from-amber-500 to-emerald-300 rounded
                       flex items-center lg:justify-around relative flex-col lg:flex-row overflow-x-hidden overflow-y-auto lg:overflow-y-hidden">
                       <div className="lg:w-[900px] w-[400px] lg:h-[800px] h-[600px] bg-purple-600/40 absolute rounded-3xl rotate-[40deg] 
                         -left-72 lg:left-[800px]">
@@ -235,7 +235,7 @@ const Home = () => {
                   }
                   {
                     index === 3 &&
-                    <div className="h-full w-full bg-gradient-to-br from-rose-400 to-red-200 rounded
+                    <div className="lg:h-full w-full h-5/6 bg-gradient-to-br from-rose-400 to-red-200 rounded
                       flex items-center lg:justify-around relative flex-col lg:flex-row overflow-x-hidden overflow-y-auto lg:overflow-y-hidden">
                       <div className="lg:w-[800px] w-[400px] lg:h-[800px] h-[600px] bg-purple-600/30 absolute rounded-3xl rotate-[80deg] 
                         -left-72 lg:left-[900px]">
@@ -266,7 +266,7 @@ const Home = () => {
                   }
                   {
                     index === 4 && 
-                    <div className="h-full w-full bg-transparent rounded
+                    <div className="lg:h-full h-5/6 w-full bg-transparent rounded
                       flex relative flex-col lg:overflow-y-hidden overflow-x-hidden overflow-y-auto">
                       <div className="mt-14 flex justify-center">
                         <div className="lg:w-[60%] w-[95%]">
@@ -289,7 +289,7 @@ const Home = () => {
                   }
                   {
                     index === 5 &&
-                    <div className="h-full w-full bg-transparent rounded
+                    <div className="lg:h-full h-5/6 w-full bg-transparent rounded
                       flex items-center lg:justify-around relative flex-col lg:flex-row overflow-hidden">
                       <div className="w-full h-full flex items-center lg:justify-around flex-col lg:flex-row overflow-y-auto overflow-x-hidden">
                         <BirthdayCake/>
@@ -301,7 +301,7 @@ const Home = () => {
               ))
             }
           </div>
-          <div className={`w-64 h-10 z-20 absolute lg:bottom-24 bottom-8 flex 
+          <div className={`w-64 h-10 z-20 absolute lg:bottom-24 bottom-[92px] flex 
             transition-opacity
             duration-500
             justify-around items-center opacity-0 ${showNav ? 'opacity-100' : 'opacity-0'}`}>
@@ -318,7 +318,7 @@ const Home = () => {
               ))
             }
           </div>
-          <div className="absolute lg:bottom-5 bottom-2 text-[12px] text-blue-200 flex items-center space-x-1">
+          <div className="absolute lg:bottom-5 bottom-20 text-[12px] text-blue-200 flex items-center space-x-1">
             <div>Designed and built by</div>
             <a 
               target="_blank"
